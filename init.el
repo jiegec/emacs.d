@@ -1,14 +1,12 @@
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
+             '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/")
+             t)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (package-initialize)
 
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-;(add-to-list 'load-path "~/.emacs.d/cl-lib/")
-;(require 'cl-lib)
-
 
 (unless (require 'el-get nil 'noerror)
   (with-current-buffer
@@ -54,7 +52,6 @@
          web-mode
 
          ;; Others
-         cl-lib
          flycheck
          flydoc
          flymake
@@ -68,9 +65,8 @@
          window-numbering
          magit
          smartparens
-         gtags
-         tabbar
-         unicad
+         ctags
+         helm
          smooth-scroll)))
 
 
@@ -79,7 +75,7 @@
 (load-theme 'solarized-light t)
 
 (defun iwb ()
-  "indent whole buffer"
+  "Indent whole buffer"
   (interactive)
   (delete-trailing-whitespace)
   (indent-region (point-min) (point-max) nil)
@@ -87,6 +83,17 @@
   (message "Done."))
 
 (global-set-key [f6] 'iwb)
+
+(global-linum-mode t)
+
+(require 'smex)
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+(add-hook 'after-init-hook 'rainbow-delimiters-mode)
 
 ;; Disable popup dialog
 (defadvice yes-or-no-p (around prevent-dialog activate)
