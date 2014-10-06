@@ -1,0 +1,29 @@
+
+;; ----- smex-history -----
+(
+ eval-buffer
+ el-get-list-packages
+ rainbow-delimiters-mode
+ el-get-install
+ package-install
+ el-get-reload
+ el-get-self-update
+)
+
+;; ----- smex-data -----
+(
+ (eval-buffer . 20)
+ (imenu . 2)
+ (package-install . 8)
+ (haskell-process-restart . 1)
+ (cider-jack-in . 2)
+ (imenu-add-menubar-index . 1)
+ (package-refresh-contents . 1)
+ (el-get-list-packages . 8)
+ (el-get-self-update . 2)
+ (el-get-update-all . 3)
+ (el-get-init . 2)
+ (el-get-reload . 1)
+ (el-get-install . 12)
+ (rainbow-delimiters-mode . 1)
+)

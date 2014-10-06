@@ -1,9 +1,22 @@
+;;; init.el --- Jiege Chen's init file.
+;; Author: Jiege Chen <jiegec@qq.com>
+;; Homepage: https://github.com/jiegec/emacs.d
+
+;;; Commentary:
+;;  Please report issues to my github repo.
+
+;;; Code:
+
+(when (fboundp 'tool-bar-mode)
+  (tool-bar-mode -1))
+(when (fboundp 'scroll-bar-mode)
+  (scroll-bar-mode -1))
+
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/")
-             t)
+             '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/"))
 (add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/") t)
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
@@ -15,18 +28,12 @@
     (goto-char (point-max))
     (eval-print-last-sexp)))
 
-(require 'el-get)
-
-(setq el-get-verbose t)
-
 (setq el-get-packages
       (append
-       '(;; LaTeX
-         reftex
-         cdlatex-mode
+       '( ;; Swift
+         swift-mode
 
          ;; Clojure
-         projectile
          clojure-mode
          cider
 
@@ -35,6 +42,7 @@
          js2-refactor
 
          ;; Coffeescript
+         coffee-mode
          flymake-coffee
 
          ;; Lua
@@ -46,36 +54,41 @@
          company-ghc
          ghc-mod
          structured-haskell-mode
+         flycheck-haskell
 
          ;; Web
          elnode
          web-mode
 
+         ;; Python
+         jedi
+         elpy
+         flymake-pycheckers
+
+         ;; Imenu
+         imenu+
+         imenu-anywhere
+
          ;; Others
+         keyfreq
+         el-get
          flycheck
-         flydoc
          flymake
          flyspell
-         company-mode
-         yasnippet
          expand-region
-         rainbow-delimiters
-         smex
-         color-theme-solarized
+         company-mode
          window-numbering
+         yasnippet
+         color-theme-solarized
          magit
-         smartparens
-         ctags
-         helm
          smooth-scroll)))
-
 
 (el-get 'sync el-get-packages)
 
 (load-theme 'solarized-light t)
 
 (defun iwb ()
-  "Indent whole buffer"
+  "Indent whole buffer."
   (interactive)
   (delete-trailing-whitespace)
   (indent-region (point-min) (point-max) nil)
@@ -84,40 +97,31 @@
 
 (global-set-key [f6] 'iwb)
 
-(global-linum-mode t)
+(global-linum-mode 1)
 
-(require 'smex)
-(smex-initialize)
+(global-flycheck-mode 1)
+
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
-;; This is your old M-x.
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
-(add-hook 'after-init-hook 'rainbow-delimiters-mode)
+(smooth-scroll-mode 1)
+
+(keyfreq-mode 1)
+(keyfreq-autosave-mode 1)
+
+(defun try-to-add-imenu ()
+  "Add a Imenu to menubar."
+  (condition-case nil (imenu-add-to-menubar "Imenu") (error nil)))
+(add-hook 'font-lock-mode-hook 'try-to-add-imenu)
 
 ;; Disable popup dialog
 (defadvice yes-or-no-p (around prevent-dialog activate)
-  "Prevent yes-or-no-p from activating a dialog"
+  "Prevent yes-or-no-p from activating a dialog."
   (let ((use-dialog-box nil))
     ad-do-it))
 (defadvice y-or-n-p (around prevent-dialog-yorn activate)
-  "Prevent y-or-n-p from activating a dialog"
+  "Prevent y-or-n-p from activating a dialog."
   (let ((use-dialog-box nil))
     ad-do-it))
-
-;; LaTeX
-(add-to-list 'load-path "/usr/local/share/emacs/site-lisp")
-(require 'tex-site)
-(load "auctex.el" nil t t)
-(require 'tex-mik)
-(setq TeX-auto-save t)
-(setq TeX-parse-self t)
-(setq-default TeX-master nil)
-(add-hook 'LaTeX-mode-hook 'visual-line-mode)
-(add-hook 'LaTeX-mode-hook 'flyspell-mode)
-(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-(setq reftex-plug-into-AUCTeX t)
-(setq TeX-PDF-mode t)
-(setq TeX-view-program-list
-      '(("Default" "open %q")))
+(provide 'init)
+;;; init.el ends here
