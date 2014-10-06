@@ -70,6 +70,7 @@
          imenu-anywhere
 
          ;; Others
+         elfeed
          keyfreq
          el-get
          flycheck
@@ -108,6 +109,14 @@
 
 (keyfreq-mode 1)
 (keyfreq-autosave-mode 1)
+
+(global-set-key (kbd "C-x w") 'elfeed)
+
+(setq elfeed-feeds
+      '("http://planet.emacsen.org/atom.xml"
+        "http://www.matrix67.com/blog/feed"
+        "http://planet.emacsen.org/zh/atom.xml"))
+(elfeed-update)
 
 (defun try-to-add-imenu ()
   "Add a Imenu to menubar."
