@@ -30,8 +30,12 @@
 
 (setq el-get-packages
       (append
-       '( ;; Swift
+       '(;; Swift
          swift-mode
+
+         ;; C family
+         auto-complete-c-headers
+         auto-complete-clang
 
          ;; Clojure
          clojure-mode
@@ -40,6 +44,7 @@
          ;; Javascript
          js2-mode
          js2-refactor
+         ac-js2
 
          ;; Coffeescript
          coffee-mode
@@ -51,7 +56,7 @@
 
          ;; Haskell
          haskell-mode
-         company-ghc
+         ac-ghc-mod
          ghc-mod
          structured-haskell-mode
          flycheck-haskell
@@ -59,6 +64,9 @@
          ;; Web
          elnode
          web-mode
+
+         ;; Android
+         android-mode
 
          ;; Python
          jedi
@@ -70,6 +78,7 @@
          imenu-anywhere
 
          ;; Others
+         auto-complete-etags
          elfeed
          keyfreq
          el-get
@@ -77,14 +86,18 @@
          flymake
          flyspell
          expand-region
-         company-mode
-         window-numbering
+         auto-complete
+         helm
+         ac-helm
+         helm-gtags
          yasnippet
          color-theme-solarized
          magit
          smooth-scroll)))
 
 (el-get 'sync el-get-packages)
+
+(el-get-cleanup el-get-packages)
 
 (load-theme 'solarized-light t)
 
@@ -114,11 +127,16 @@
 
 (global-set-key (kbd "C-x w") 'elfeed)
 
+(helm-mode 1)
+
+(global-auto-complete-mode 1)
+
 (setq elfeed-feeds
       '("http://planet.emacsen.org/atom.xml"
-	"http://www.ruanyifeng.com/blog/atom.xml"
+        "http://www.ruanyifeng.com/blog/atom.xml"
         "http://www.matrix67.com/blog/feed"
-	"http://nullprogram.com/feed/"
+        "http://nullprogram.com/feed/"
+        "http://endlessparentheses.com/atom.xml"
         "http://planet.emacsen.org/zh/atom.xml"))
 
 (defun try-to-add-imenu ()

@@ -1,3 +1,6 @@
 el-get/
 auto-save-list/
 elpa/
+ac-comphist.dat
+url/
+projectile-bookmarks.eld
