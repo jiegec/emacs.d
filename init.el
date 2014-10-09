@@ -47,6 +47,7 @@
          js2-mode
          js2-refactor
          ac-js2
+         swank-js
 
          ;; Coffeescript
          coffee-mode
@@ -62,6 +63,12 @@
          ac-ghc-mod
          structured-haskell-mode
          flycheck-haskell
+
+         ;; JVM
+         gradle-mode
+         Emacs-Groovy-Mode
+         scala-mode2
+         sbt-mode
 
          ;; Web
          elnode
@@ -154,6 +161,8 @@
 (global-ace-isearch-mode 1)
 
 (projectile-global-mode 1)
+
+(gradle-mode 1)
 
 (setq elfeed-feeds
       '("http://planet.emacsen.org/atom.xml"
