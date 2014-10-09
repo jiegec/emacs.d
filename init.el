@@ -28,6 +28,8 @@
     (goto-char (point-max))
     (eval-print-last-sexp)))
 
+(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-recipes")
+
 (setq el-get-packages
       (append
        '(;; Swift
@@ -56,8 +58,8 @@
 
          ;; Haskell
          haskell-mode
-         ac-ghc-mod
          ghc-mod
+         ac-ghc-mod
          structured-haskell-mode
          flycheck-haskell
 
@@ -78,21 +80,25 @@
          imenu-anywhere
 
          ;; Others
-         auto-complete-etags
+         2048.el
+         projectile
          elfeed
          keyfreq
+         smex
          el-get
          flycheck
          flymake
          flyspell
          expand-region
          auto-complete
-         helm
+         auto-complete-etags
          ac-helm
+         helm
          helm-gtags
          yasnippet
          color-theme-solarized
          magit
+         ace-isearch
          smooth-scroll)))
 
 (el-get 'sync el-get-packages)
@@ -113,6 +119,20 @@
 
 (global-linum-mode 1)
 
+(setq linum-format (lambda
+                     (line)
+                     (propertize
+                      (format (concat "%"
+                                      (number-to-string
+                                       (length
+                                        (number-to-string
+                                         (line-number-at-pos
+                                          (point-max)))))
+                                      "d ")
+                              line)
+                      'face
+                      'linum)))
+
 (global-flycheck-mode 1)
 
 (global-set-key (kbd "M-x") 'smex)
@@ -130,6 +150,10 @@
 (helm-mode 1)
 
 (global-auto-complete-mode 1)
+
+(global-ace-isearch-mode 1)
+
+(projectile-global-mode 1)
 
 (setq elfeed-feeds
       '("http://planet.emacsen.org/atom.xml"
