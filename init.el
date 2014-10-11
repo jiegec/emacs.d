@@ -14,103 +14,135 @@
 
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/"))
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
 
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+(setq my-packages
+      '(;; Swift
+        swift-mode
 
-(unless (require 'el-get nil 'noerror)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
+        ;; C family
+        company-c-headers
+        flymake-google-cpplint
+        flycheck-google-cpplint
+        flymake-cppcheck
+        google-c-style
 
-(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-recipes")
+        ;; Go
+        go-mode
+        go-company
+        flymake-go
+        goflymake
+        go-oracle
 
-(setq el-get-packages
-      (append
-       '(;; Swift
-         swift-mode
+        ;; Clojure
+        clojure-mode
+        cider
 
-         ;; C family
-         auto-complete-c-headers
-         auto-complete-clang
+        ;; Javascript
+        js2-mode
+        js2-refactor
+        nodejs-repl
+        flymake-jslint
+        nvm
+        flymake-jshint
 
-         ;; Clojure
-         clojure-mode
-         cider
+        ;; Coffeescript
+        coffee-mode
+        flymake-coffee
 
-         ;; Javascript
-         js2-mode
-         js2-refactor
-         ac-js2
-         swank-js
+        ;; Lua
+        flymake-lua
+        lua-mode
 
-         ;; Coffeescript
-         coffee-mode
-         flymake-coffee
+        ;; Haskell
+        haskell-mode
+        ghc-mod
+        structured-haskell-mode
+        ghci-completion
+        flycheck-haskell
+        company-ghc
+        flycheck-hdevtools
+        flymake-haskell-multi
+        flymake-hlint
 
-         ;; Lua
-         flymake-lua
-         lua-mode
+        ;; JVM
+        gradle-mode
+        Emacs-Groovy-Mode
+        scala-mode2
+        sbt-mode
 
-         ;; Haskell
-         haskell-mode
-         ghc-mod
-         ac-ghc-mod
-         structured-haskell-mode
-         flycheck-haskell
+        ;; Web
+        elnode
+        web-mode
 
-         ;; JVM
-         gradle-mode
-         Emacs-Groovy-Mode
-         scala-mode2
-         sbt-mode
+        ;; Android
+        android-mode
 
-         ;; Web
-         elnode
-         web-mode
+        ;; Python
+        elpy
+        nose
+        flymake-python-pyflakes
+        flycheck-pyflakes
 
-         ;; Android
-         android-mode
+        ;; Imenu
+        imenu+
+        imenu-anywhere
 
-         ;; Python
-         jedi
-         elpy
-         flymake-pycheckers
+        ;; Common Lisp
+        slime
+        slime-company
 
-         ;; Imenu
-         imenu+
-         imenu-anywhere
+        ;; Others
+        auto-dictionary
+        2048.el
+        company-mode
+        projectile
+        elfeed
+        keyfreq
+        smex
+        el-get
+        flycheck
+        flymake
+        flyspell
+        flyparens
+        expand-region
+        helm
+        helm-company
+        helm-gtags
+        helm-flycheck
+        helm-flymake
+        yasnippet
+        color-theme-solarized
+        magit
+        ace-isearch
+        smooth-scroll))
 
-         ;; Others
-         2048.el
-         projectile
-         elfeed
-         keyfreq
-         smex
-         el-get
-         flycheck
-         flymake
-         flyspell
-         expand-region
-         auto-complete
-         auto-complete-etags
-         ac-helm
-         helm
-         helm-gtags
-         yasnippet
-         color-theme-solarized
-         magit
-         ace-isearch
-         smooth-scroll)))
+(setq n 0)
+(dolist (pkg my-packages)
+  (unless (or
+           (package-installed-p pkg)
+           (assoc pkg
+                  package-archive-contents))
+    (setq n (+ n 1))))
+(when (> n 0)
+  (package-refresh-contents))
 
-(el-get 'sync el-get-packages)
+(dolist (pkg my-packages)
+  (when (and (not (package-installed-p pkg))
+             (assoc pkg package-archive-contents))
+    (package-install pkg)))
 
-(el-get-cleanup el-get-packages)
+(defun package-list-unaccounted-packages ()
+  (interactive)
+  (package-show-package-list
+   (remove-if-not (lambda (x) (and (not (memq x my-packages))
+                                   (not (package-built-in-p x))
+                                   (package-installed-p x)))
+                  (mapcar 'car package-archive-contents))))
 
 (load-theme 'solarized-light t)
 
@@ -156,13 +188,11 @@
 
 (helm-mode 1)
 
-(global-auto-complete-mode 1)
-
 (global-ace-isearch-mode 1)
 
 (projectile-global-mode 1)
 
-(gradle-mode 1)
+(global-company-mode 1)
 
 (setq elfeed-feeds
       '("http://planet.emacsen.org/atom.xml"

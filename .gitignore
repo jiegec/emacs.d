@@ -5,3 +5,5 @@ ac-comphist.dat
 url/
 projectile-bookmarks.eld
 emms/
+.cask/
+npm*
