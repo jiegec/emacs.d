@@ -28,16 +28,16 @@
     (goto-char (point-max))
     (eval-print-last-sexp)))
 
-(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-recipes")
+(add-to-list 'el-get-recipe-path "~/el-get/recipes")
 
 (setq el-get-packages
       (append
        '(;; Swift
          swift-mode
 
-         ;; C family
-         auto-complete-c-headers
-         auto-complete-clang
+         ;; Go
+         go-company
+         go-mode
 
          ;; Clojure
          clojure-mode
@@ -46,8 +46,8 @@
          ;; Javascript
          js2-mode
          js2-refactor
-         ac-js2
          swank-js
+         json-mode
 
          ;; Coffeescript
          coffee-mode
@@ -60,12 +60,12 @@
          ;; Haskell
          haskell-mode
          ghc-mod
-         ac-ghc-mod
          structured-haskell-mode
          flycheck-haskell
+         company-ghc
+         company-cabal
 
          ;; JVM
-         gradle-mode
          Emacs-Groovy-Mode
          scala-mode2
          sbt-mode
@@ -78,7 +78,6 @@
          android-mode
 
          ;; Python
-         jedi
          elpy
          flymake-pycheckers
 
@@ -97,9 +96,7 @@
          flymake
          flyspell
          expand-region
-         auto-complete
-         auto-complete-etags
-         ac-helm
+         company-mode
          helm
          helm-gtags
          yasnippet
@@ -142,6 +139,8 @@
 
 (global-flycheck-mode 1)
 
+(flymake-mode 1)
+
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
@@ -156,13 +155,11 @@
 
 (helm-mode 1)
 
-(global-auto-complete-mode 1)
+(global-company-mode 1)
 
 (global-ace-isearch-mode 1)
 
 (projectile-global-mode 1)
-
-(gradle-mode 1)
 
 (setq elfeed-feeds
       '("http://planet.emacsen.org/atom.xml"
