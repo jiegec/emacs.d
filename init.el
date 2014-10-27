@@ -35,9 +35,15 @@
        '(;; Swift
          swift-mode
 
+         ;; Markdown
+         markdown-mode
+         markdown-preview-mode
+
          ;; Go
          go-company
          go-mode
+         go-test
+         go-lint
 
          ;; Clojure
          clojure-mode
@@ -66,7 +72,7 @@
          company-cabal
 
          ;; JVM
-         Emacs-Groovy-Mode
+         groovy-emacs-mode
          scala-mode2
          sbt-mode
 
@@ -86,6 +92,7 @@
          imenu-anywhere
 
          ;; Others
+         aggressive-indent-mode
          2048.el
          projectile
          elfeed
@@ -97,6 +104,7 @@
          flyspell
          expand-region
          company-mode
+         gtags
          helm
          helm-gtags
          yasnippet
@@ -160,6 +168,8 @@
 (global-ace-isearch-mode 1)
 
 (projectile-global-mode 1)
+
+(global-aggressive-indent-mode t)
 
 (setq elfeed-feeds
       '("http://planet.emacsen.org/atom.xml"
