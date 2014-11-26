@@ -12,6 +12,8 @@
 (when (fboundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
 
+(add-to-list 'exec-path "/usr/local/bin")
+
 (require 'package)
 (add-to-list 'package-archives
              '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/"))
@@ -40,8 +42,8 @@
          markdown-preview-mode
 
          ;; Go
-         go-company
          go-mode
+         go-company
          go-test
          go-lint
 
@@ -92,6 +94,7 @@
          imenu-anywhere
 
          ;; Others
+         dash-at-point
          aggressive-indent-mode
          2048.el
          projectile
@@ -111,7 +114,8 @@
          color-theme-solarized
          magit
          ace-isearch
-         smooth-scroll)))
+         smooth-scroll
+         )))
 
 (el-get 'sync el-get-packages)
 
@@ -152,7 +156,7 @@
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
-(smooth-scroll-mode 1)
+;;(smooth-scroll-mode 1)
 
 (keyfreq-mode 1)
 (keyfreq-autosave-mode 1)
@@ -167,7 +171,7 @@
 
 (global-ace-isearch-mode 1)
 
-(projectile-global-mode 1)
+;;(projectile-global-mode 1)
 
 (global-aggressive-indent-mode t)
 
