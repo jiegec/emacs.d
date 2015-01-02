@@ -16,9 +16,9 @@
 
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/"))
+'("melpa-stable" . "http://melpa-stable.milkbox.net/packages/"))
 (add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
+'("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
@@ -50,6 +50,9 @@
          ;; Clojure
          clojure-mode
          cider
+
+	 ;; LaTeX
+	 auctex
 
          ;; Javascript
          js2-mode
@@ -94,6 +97,8 @@
          imenu-anywhere
 
          ;; Others
+	 slime
+	 ggtags
          dash-at-point
          aggressive-indent-mode
          2048.el
@@ -114,7 +119,8 @@
          color-theme-solarized
          magit
          ace-isearch
-         smooth-scroll
+	 rainbow-delimiters
+         smooth-scrolling
          )))
 
 (el-get 'sync el-get-packages)
@@ -156,8 +162,6 @@
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
-;;(smooth-scroll-mode 1)
-
 (keyfreq-mode 1)
 (keyfreq-autosave-mode 1)
 
@@ -167,11 +171,17 @@
 
 (helm-mode 1)
 
+(require 'smooth-scrolling)
+
+(rainbow-delimiters-mode 1)
+
+(setq inferior-lisp-program "/usr/local/bin/sbcl")
+
 (global-company-mode 1)
 
 (global-ace-isearch-mode 1)
 
-;;(projectile-global-mode 1)
+(projectile-global-mode 1)
 
 (global-aggressive-indent-mode t)
 
@@ -182,6 +192,8 @@
         "http://nullprogram.com/feed/"
         "http://endlessparentheses.com/atom.xml"
         "http://planet.emacsen.org/zh/atom.xml"))
+
+(global-set-key "\C-cd" 'dash-at-point)
 
 (defun try-to-add-imenu ()
   "Add a Imenu to menubar."
