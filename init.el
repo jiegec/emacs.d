@@ -16,9 +16,9 @@
 
 (require 'package)
 (add-to-list 'package-archives
-'("melpa-stable" . "http://melpa-stable.milkbox.net/packages/"))
+             '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/"))
 (add-to-list 'package-archives
-'("marmalade" . "http://marmalade-repo.org/packages/"))
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
@@ -51,8 +51,8 @@
          clojure-mode
          cider
 
-	 ;; LaTeX
-	 auctex
+         ;; LaTeX
+         auctex
 
          ;; Javascript
          js2-mode
@@ -73,7 +73,7 @@
          ghc-mod
          structured-haskell-mode
          flycheck-haskell
-         company-ghc
+	 company-ghc
          company-cabal
 
          ;; JVM
@@ -97,8 +97,8 @@
          imenu-anywhere
 
          ;; Others
-	 slime
-	 ggtags
+         slime
+         ggtags
          dash-at-point
          aggressive-indent-mode
          2048.el
@@ -119,9 +119,18 @@
          color-theme-solarized
          magit
          ace-isearch
-	 rainbow-delimiters
+         rainbow-delimiters
          smooth-scrolling
-         )))
+         emacs-w3m
+         smartparens
+         evil
+         evil-leader
+         evil-nerd-commenter
+         evil-matchit
+         window-number
+	 evil-surround
+	 evil-escape
+	 )))
 
 (el-get 'sync el-get-packages)
 
@@ -155,6 +164,8 @@
                       'face
                       'linum)))
 
+(window-number-mode 1)
+
 (global-flycheck-mode 1)
 
 (flymake-mode 1)
@@ -171,8 +182,6 @@
 
 (helm-mode 1)
 
-(require 'smooth-scrolling)
-
 (rainbow-delimiters-mode 1)
 
 (setq inferior-lisp-program "/usr/local/bin/sbcl")
@@ -185,12 +194,53 @@
 
 (global-aggressive-indent-mode t)
 
+(window-number-mode 1)
+
+(global-evil-leader-mode 1)
+(evil-leader/set-leader ",")
+
+(evil-mode 1)
+
+(global-evil-surround-mode 1)
+
+(require 'evil-nerd-commenter)
+(evilnc-default-hotkeys)
+
+(require 'evil-matchit)
+(global-evil-matchit-mode 1)
+
+(setq-default evil-escape-delay 0.2)
+(setq-default evil-escape-key-sequence "kj")
+(evil-escape-mode 1)
+
+(delete-selection-mode 1)
+
+(smartparens-global-mode 1)
+
+
+(eval-after-load "evil"
+  '(setq expand-region-contract-fast-key "z"))
+
+(evil-leader/set-key
+  "0" '(lambda () (interactive) (window-number-select 0))
+  "1" '(lambda () (interactive) (window-number-select 1))
+  "2" '(lambda () (interactive) (window-number-select 2))
+  "3" '(lambda () (interactive) (window-number-select 3))
+  "4" '(lambda () (interactive) (window-number-select 4))
+  "5" '(lambda () (interactive) (window-number-select 5))
+  "6" '(lambda () (interactive) (window-number-select 6))
+  "7" '(lambda () (interactive) (window-number-select 7))
+  "8" '(lambda () (interactive) (window-number-select 8))
+  "9" '(lambda () (interactive) (window-number-select 9))
+  "xx" 'er/expand-region)
+
 (setq elfeed-feeds
       '("http://planet.emacsen.org/atom.xml"
         "http://www.ruanyifeng.com/blog/atom.xml"
         "http://www.matrix67.com/blog/feed"
         "http://nullprogram.com/feed/"
         "http://endlessparentheses.com/atom.xml"
+        "http://www.geek.com/feed/"
         "http://planet.emacsen.org/zh/atom.xml"))
 
 (global-set-key "\C-cd" 'dash-at-point)
@@ -202,12 +252,13 @@
 
 ;; Disable popup dialog
 (defadvice yes-or-no-p (around prevent-dialog activate)
-  "Prevent yes-or-no-p from activating a dialog."
+  "Prevent 'yes-or-no-p from activating a dialog."
   (let ((use-dialog-box nil))
     ad-do-it))
 (defadvice y-or-n-p (around prevent-dialog-yorn activate)
-  "Prevent y-or-n-p from activating a dialog."
+  "Prevent 'y-or-n-p from activating a dialog."
   (let ((use-dialog-box nil))
     ad-do-it))
+
 (provide 'init)
 ;;; init.el ends here
