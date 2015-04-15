@@ -52,7 +52,7 @@
          cider
 
          ;; LaTeX
-         auctex
+         ;; auctex
 
          ;; Javascript
          js2-mode
@@ -73,7 +73,7 @@
          ghc-mod
          structured-haskell-mode
          flycheck-haskell
-	 company-ghc
+         company-ghc
          company-cabal
 
          ;; JVM
@@ -128,9 +128,14 @@
          evil-nerd-commenter
          evil-matchit
          window-number
-	 evil-surround
-	 evil-escape
-	 )))
+         evil-surround
+         evil-escape
+         powerline-evil
+         relative-line-numbers
+         dtrt-indent
+         ag
+         diminish
+         )))
 
 (el-get 'sync el-get-packages)
 
@@ -148,25 +153,11 @@
 
 (global-set-key [f6] 'iwb)
 
-(global-linum-mode 1)
-
-(setq linum-format (lambda
-                     (line)
-                     (propertize
-                      (format (concat "%"
-                                      (number-to-string
-                                       (length
-                                        (number-to-string
-                                         (line-number-at-pos
-                                          (point-max)))))
-                                      "d ")
-                              line)
-                      'face
-                      'linum)))
-
 (window-number-mode 1)
 
 (global-flycheck-mode 1)
+
+(flyspell-mode 1)
 
 (flymake-mode 1)
 
@@ -196,10 +187,30 @@
 
 (window-number-mode 1)
 
+(setq gdb-many-windows t)
+
+(scroll-bar-mode -1)
+
+(setq evil-leader/in-all-states 1)
 (global-evil-leader-mode 1)
 (evil-leader/set-leader ",")
 
 (evil-mode 1)
+(setq evil-move-cursor-back nil)
+(setq evil-emacs-state-cursor '("red" box))
+(setq evil-normal-state-cursor '("green" box))
+(setq evil-visual-state-cursor '("orange" box))
+(setq evil-insert-state-cursor '("red" bar))
+(setq evil-replace-state-cursor '("red" bar))
+(setq evil-operator-state-cursor '("red" hollow))
+(define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
+(define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
+(define-key evil-normal-state-map (kbd "C-k") (lambda ()
+                                                (interactive)
+                                                (evil-scroll-up nil)))
+(define-key evil-normal-state-map (kbd "C-j") (lambda ()
+                                                (interactive)
+                                                (evil-scroll-down nil)))
 
 (global-evil-surround-mode 1)
 
@@ -209,17 +220,26 @@
 (require 'evil-matchit)
 (global-evil-matchit-mode 1)
 
+(powerline-evil-vim-color-theme)
+(display-time-mode 1)
+
+(relative-line-numbers-mode 1)
+(line-number-mode 1)
+(column-number-mode 1)
+
 (setq-default evil-escape-delay 0.2)
 (setq-default evil-escape-key-sequence "kj")
 (evil-escape-mode 1)
 
 (delete-selection-mode 1)
 
+(dtrt-indent-mode 1)
+
 (smartparens-global-mode 1)
 
-
-(eval-after-load "evil"
-  '(setq expand-region-contract-fast-key "z"))
+(evil-leader/set-key "e" 'evil-ace-jump-word-mode) ; ,e for Ace Jump (word)
+(evil-leader/set-key "l" 'evil-ace-jump-line-mode) ; ,l for Ace Jump (line)
+(evil-leader/set-key "x" 'evil-ace-jump-char-mode) ; ,x for Ace Jump (char)
 
 (evil-leader/set-key
   "0" '(lambda () (interactive) (window-number-select 0))
@@ -232,7 +252,7 @@
   "7" '(lambda () (interactive) (window-number-select 7))
   "8" '(lambda () (interactive) (window-number-select 8))
   "9" '(lambda () (interactive) (window-number-select 9))
-  "xx" 'er/expand-region)
+  "r" 'er/expand-region)
 
 (setq elfeed-feeds
       '("http://planet.emacsen.org/atom.xml"
@@ -244,6 +264,18 @@
         "http://planet.emacsen.org/zh/atom.xml"))
 
 (global-set-key "\C-cd" 'dash-at-point)
+
+(setq scroll-margin 5
+      scroll-conservatively 9999
+      scroll-step 1)
+
+(diminish 'company-mode)
+(diminish 'helm-mode)
+(diminish 'evil-escape-mode)
+(diminish 'undo-tree-mode)
+(diminish 'smartparens-mode)
+(diminish 'aggressive-indent-mode)
+(diminish 'flyspell-mode)
 
 (defun try-to-add-imenu ()
   "Add a Imenu to menubar."

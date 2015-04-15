@@ -1,9 +1,9 @@
 
 ;; ----- smex-history -----
 (
- elfeed-update
- elfeed-update-feed
  eval-buffer
+ el-get-list-packages
+ elfeed-update
  window-number-select
  el-get-update-all
  el-get-self-update
@@ -12,7 +12,7 @@
 
 ;; ----- smex-data -----
 (
- (eval-buffer . 18)
+ (eval-buffer . 27)
  (pr-ps-file-preview . 1)
  (preview-buffer . 2)
  (el-get-self-update . 6)
@@ -26,4 +26,5 @@
  (window-number-select . 1)
  (elfeed-update-feed . 2)
  (elfeed-update . 1)
+ (el-get-list-packages . 2)
 )
