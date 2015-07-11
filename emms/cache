@@ -1,3 +1,0 @@
-;;; .emms-cache -*- mode: emacs-lisp; coding: utf-8; -*-
-(puthash "/Users/chenjack/Downloads/DSC_0945.mp4" '(*track* (type . file) (name . "/Users/chenjack/Downloads/DSC_0945.mp4") (metadata) (info-mtime 21549 1452 0 0)) emms-cache-db)
-(puthash "/Users/chenjack/Downloads/090504nec2/2-01.mp3" '(*track* (type . file) (name . "/Users/chenjack/Downloads/090504nec2/2-01.mp3") (metadata) (info-mtime 18722 59008 0 0)) emms-cache-db)

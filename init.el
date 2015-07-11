@@ -7,12 +7,7 @@
 
 ;;; Code:
 
-(when (fboundp 'tool-bar-mode)
-  (tool-bar-mode -1))
-(when (fboundp 'scroll-bar-mode)
-  (scroll-bar-mode -1))
-
-(add-to-list 'exec-path "/usr/local/bin")
+(tool-bar-mode -1)
 
 (require 'package)
 (add-to-list 'package-archives
@@ -46,23 +41,47 @@
          go-company
          go-test
          go-lint
+         go-flymake
+         go-errcheck
+
+         ;; Scheme
+         geiser
+         quack
+         racket-mode
 
          ;; Clojure
          clojure-mode
          cider
+         clojure-snippets
 
          ;; LaTeX
-         ;; auctex
+         auctex
+	 latex-preview-pane
 
          ;; Javascript
          js2-mode
          js2-refactor
          swank-js
          json-mode
+         js-comint
+
+         ;; PHP
+         php-mode
 
          ;; Coffeescript
          coffee-mode
          flymake-coffee
+
+         ;; Standard ML
+         sml-mode
+
+         ;; OCaml
+         tuareg-mode
+
+         ;; Erlang
+         erlang-mode
+         distel
+         edts
 
          ;; Lua
          flymake-lua
@@ -79,11 +98,16 @@
          ;; JVM
          groovy-emacs-mode
          scala-mode2
+         ensime
          sbt-mode
+         eclim
+         groovy-emacs-mode
 
          ;; Web
          elnode
+         emmet-mode
          web-mode
+         skewer-mode
 
          ;; Android
          android-mode
@@ -135,6 +159,18 @@
          dtrt-indent
          ag
          diminish
+         neotree
+         prodigy
+         undo-tree
+         highlight-symbol
+         rainbow-mode
+         visual-regexp
+         discover
+         discover-my-major
+         guide-key
+         guide-key-tip
+         git-timemachine
+         helm-ag
          )))
 
 (el-get 'sync el-get-packages)
@@ -164,13 +200,6 @@
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
-(keyfreq-mode 1)
-(keyfreq-autosave-mode 1)
-
-(global-font-lock-mode t)
-
-(global-set-key (kbd "C-x w") 'elfeed)
-
 (helm-mode 1)
 
 (rainbow-delimiters-mode 1)
@@ -187,13 +216,7 @@
 
 (window-number-mode 1)
 
-(setq gdb-many-windows t)
-
 (scroll-bar-mode -1)
-
-(setq evil-leader/in-all-states 1)
-(global-evil-leader-mode 1)
-(evil-leader/set-leader ",")
 
 (evil-mode 1)
 (setq evil-move-cursor-back nil)
@@ -203,21 +226,11 @@
 (setq evil-insert-state-cursor '("red" bar))
 (setq evil-replace-state-cursor '("red" bar))
 (setq evil-operator-state-cursor '("red" hollow))
-(define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
-(define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
-(define-key evil-normal-state-map (kbd "C-k") (lambda ()
-                                                (interactive)
-                                                (evil-scroll-up nil)))
-(define-key evil-normal-state-map (kbd "C-j") (lambda ()
-                                                (interactive)
-                                                (evil-scroll-down nil)))
 
 (global-evil-surround-mode 1)
 
-(require 'evil-nerd-commenter)
 (evilnc-default-hotkeys)
 
-(require 'evil-matchit)
 (global-evil-matchit-mode 1)
 
 (powerline-evil-vim-color-theme)
@@ -237,37 +250,30 @@
 
 (smartparens-global-mode 1)
 
-(evil-leader/set-key "e" 'evil-ace-jump-word-mode) ; ,e for Ace Jump (word)
-(evil-leader/set-key "l" 'evil-ace-jump-line-mode) ; ,l for Ace Jump (line)
-(evil-leader/set-key "x" 'evil-ace-jump-char-mode) ; ,x for Ace Jump (char)
-
-(evil-leader/set-key
-  "0" '(lambda () (interactive) (window-number-select 0))
-  "1" '(lambda () (interactive) (window-number-select 1))
-  "2" '(lambda () (interactive) (window-number-select 2))
-  "3" '(lambda () (interactive) (window-number-select 3))
-  "4" '(lambda () (interactive) (window-number-select 4))
-  "5" '(lambda () (interactive) (window-number-select 5))
-  "6" '(lambda () (interactive) (window-number-select 6))
-  "7" '(lambda () (interactive) (window-number-select 7))
-  "8" '(lambda () (interactive) (window-number-select 8))
-  "9" '(lambda () (interactive) (window-number-select 9))
-  "r" 'er/expand-region)
-
-(setq elfeed-feeds
-      '("http://planet.emacsen.org/atom.xml"
-        "http://www.ruanyifeng.com/blog/atom.xml"
-        "http://www.matrix67.com/blog/feed"
-        "http://nullprogram.com/feed/"
-        "http://endlessparentheses.com/atom.xml"
-        "http://www.geek.com/feed/"
-        "http://planet.emacsen.org/zh/atom.xml"))
-
 (global-set-key "\C-cd" 'dash-at-point)
 
 (setq scroll-margin 5
       scroll-conservatively 9999
       scroll-step 1)
+
+(global-set-key [f5] 'neotree-toggle)
+
+(require 'tex-mik)
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(setq reftex-plug-into-AUCTeX t)
+(setq TeX-PDF-mode t)
+
+(add-hook 'LaTeX-mode-hook 
+          (lambda()
+	    (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
+	    (setq TeX-command-default "XeLaTeX")
+	    (setq TeX-save-query nil)
+	    (setq TeX-show-compilation t)))
+
+(latex-preview-pane-enable)
 
 (diminish 'company-mode)
 (diminish 'helm-mode)
@@ -276,6 +282,8 @@
 (diminish 'smartparens-mode)
 (diminish 'aggressive-indent-mode)
 (diminish 'flyspell-mode)
+(diminish 'abbrev-mode)
+(diminish 'auto-complete-mode)
 
 (defun try-to-add-imenu ()
   "Add a Imenu to menubar."
