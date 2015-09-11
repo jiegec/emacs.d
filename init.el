@@ -25,6 +25,9 @@
     (goto-char (point-max))
     (eval-print-last-sexp)))
 
+(let ((default-directory "/usr/local/share/emacs/site-lisp/"))
+  (normal-top-level-add-subdirs-to-load-path))
+
 (add-to-list 'el-get-recipe-path "~/el-get/recipes")
 
 (setq el-get-packages
@@ -56,7 +59,7 @@
 
          ;; LaTeX
          auctex
-	 latex-preview-pane
+         latex-preview-pane
 
          ;; Javascript
          js2-mode
@@ -100,7 +103,6 @@
          scala-mode2
          ensime
          sbt-mode
-         eclim
          groovy-emacs-mode
 
          ;; Web
@@ -147,19 +149,11 @@
          smooth-scrolling
          emacs-w3m
          smartparens
-         evil
-         evil-leader
-         evil-nerd-commenter
-         evil-matchit
          window-number
-         evil-surround
-         evil-escape
-         powerline-evil
          relative-line-numbers
          dtrt-indent
          ag
          diminish
-         neotree
          prodigy
          undo-tree
          highlight-symbol
@@ -171,6 +165,9 @@
          guide-key-tip
          git-timemachine
          helm-ag
+         editorconfig
+         po-mode
+         which-key
          )))
 
 (el-get 'sync el-get-packages)
@@ -210,6 +207,8 @@
 
 (global-ace-isearch-mode 1)
 
+(global-auto-complete-mode 0)
+
 (projectile-global-mode 1)
 
 (global-aggressive-indent-mode t)
@@ -218,72 +217,36 @@
 
 (scroll-bar-mode -1)
 
-(evil-mode 1)
-(setq evil-move-cursor-back nil)
-(setq evil-emacs-state-cursor '("red" box))
-(setq evil-normal-state-cursor '("green" box))
-(setq evil-visual-state-cursor '("orange" box))
-(setq evil-insert-state-cursor '("red" bar))
-(setq evil-replace-state-cursor '("red" bar))
-(setq evil-operator-state-cursor '("red" hollow))
-
-(global-evil-surround-mode 1)
-
-(evilnc-default-hotkeys)
-
-(global-evil-matchit-mode 1)
-
-(powerline-evil-vim-color-theme)
-(display-time-mode 1)
-
 (relative-line-numbers-mode 1)
 (line-number-mode 1)
 (column-number-mode 1)
-
-(setq-default evil-escape-delay 0.2)
-(setq-default evil-escape-key-sequence "kj")
-(evil-escape-mode 1)
 
 (delete-selection-mode 1)
 
 (dtrt-indent-mode 1)
 
+(which-key-mode 1)
+
+(setq auto-mode-alist
+      (cons '("\\.po\\'\\|\\.po\\." . po-mode) auto-mode-alist))
+(autoload 'po-mode "po-mode" "Major mode for translators to edit PO files" t)
+
 (smartparens-global-mode 1)
 
-(global-set-key "\C-cd" 'dash-at-point)
-
-(setq scroll-margin 5
-      scroll-conservatively 9999
-      scroll-step 1)
-
-(global-set-key [f5] 'neotree-toggle)
-
-(require 'tex-mik)
-(setq TeX-auto-save t)
-(setq TeX-parse-self t)
-(setq-default TeX-master nil)
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-(setq reftex-plug-into-AUCTeX t)
-(setq TeX-PDF-mode t)
-
-(add-hook 'LaTeX-mode-hook 
-          (lambda()
-	    (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
-	    (setq TeX-command-default "XeLaTeX")
-	    (setq TeX-save-query nil)
-	    (setq TeX-show-compilation t)))
-
-(latex-preview-pane-enable)
+(setq scroll-margin 1
+      scroll-conservatively 0
+      scroll-up-aggressively 0.01
+      scroll-down-aggressively 0.01)
+(setq-default scroll-up-aggressively 0.01
+              scroll-down-aggressively 0.01)
 
 (diminish 'company-mode)
 (diminish 'helm-mode)
-(diminish 'evil-escape-mode)
-(diminish 'undo-tree-mode)
 (diminish 'smartparens-mode)
 (diminish 'aggressive-indent-mode)
 (diminish 'flyspell-mode)
 (diminish 'abbrev-mode)
-(diminish 'auto-complete-mode)
+(diminish 'ace-isearch-mode)
 
 (defun try-to-add-imenu ()
   "Add a Imenu to menubar."
