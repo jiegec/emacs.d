@@ -232,7 +232,8 @@ _f_ auto-fill-mode:           %`auto-fill-function
 (use-package yasnippet
   :ensure t
   :config
-  (my/set yas-snippet-dirs '("~/.emacs.d/snippets"))
+  (my/set yas-snippet-dirs '("~/.emacs.d/snippets"
+                             "~/.emacs.d/yasnippet-snippets/snippets"))
   (yas-global-mode t)
   :diminish
   yas-minor-mode)

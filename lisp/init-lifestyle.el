@@ -22,7 +22,7 @@
   ("C-c e" . connect-irc)
   :config
   (my/set erc-nick "jiegec"
-          erc-user-full-name "Jiege Chen"
+          erc-user-full-name "Jiajie Chen"
           erc-server-auto-reconnect t
           erc-rename-buffers t
           erc-interpret-mirc-color t

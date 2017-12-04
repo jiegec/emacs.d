@@ -2,7 +2,7 @@
 (setq package-enable-at-startup nil)
 (package-initialize)
 
-(setq user-full-name "Jiege Chen")
+(setq user-full-name "Jiajie Chen")
 (setq user-mail-address "jiegec@qq.com")
 (require 'org)
 (require 'cl)

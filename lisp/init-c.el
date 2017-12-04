@@ -125,6 +125,9 @@
   (my/set gdb-many-windows t
           gdb-show-main t))
 
+(use-package bison-mode
+  :ensure t)
+
 (with-eval-after-load 'company
   (push 'company-clang company-backends))
 (defun init-c ()
