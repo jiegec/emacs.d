@@ -1,0 +1,10 @@
+(require 'package)
+(setq package-enable-at-startup nil)
+(package-initialize)
+
+(setq user-full-name "Jiege Chen")
+(setq user-mail-address "jiegec@qq.com")
+(require 'org)
+(require 'cl)
+(require 'ox)
+(defun ask-user-about-lock (file opponent) "Always steal lock." t)

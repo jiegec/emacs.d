@@ -1,27 +1,47 @@
 ;;; init.el --- Jiege Chen's init file.
 ;; Author: Jiege Chen <jiegec@qq.com>
-;; Homepage: https://github.com/jiegec/emacs.d
+;; Homepage: https://github.com/jiegec
 
 ;;; Commentary:
 ;;  Please report issues to my github repo.
 
 ;;; Code:
 
-(tool-bar-mode -1)
+(defconst emacs-start-time (current-time))
 
-(let ((default-directory "/usr/local/share/emacs/site-lisp/"))
-  (normal-top-level-add-subdirs-to-load-path))
+(add-to-list 'load-path "~/.emacs.d/lisp")
 
-;; (require 'homebrew-mode)
-;; (add-hook 'after-init-hook 'global-homebrew-mode)
+(setq debug-on-error nil)
+;; (setq load-suffixes '(".el"))
 
-(require 'company)
-(add-hook 'after-init-hook 'global-company-mode)
+(require 'init-package)
 
-(require 'smex)
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "C-x C-M") 'smex-major-mode-commands)
+(require 'init-evil)
+
+(require 'init-builtins)
+(require 'init-c)
+(require 'init-clojure)
+(require 'init-elm)
+(require 'init-email)
+(require 'init-erlang)
+(require 'init-go)
+(require 'init-haskell)
+(require 'init-input)
+(require 'init-java)
+(require 'init-lifestyle)
+(require 'init-lisp)
+(require 'init-mail)
+(require 'init-proof)
+(require 'init-python)
+(require 'init-rust)
+(require 'init-utils)
+(require 'init-web)
+
+;; (package-initialize)
+
+(let ((elapsed (float-time (time-subtract (current-time)
+                                          emacs-start-time))))
+  (message "Loading %s...done (%.3fs)" load-file-name elapsed))
 
 (provide 'init)
 ;;; init.el ends here
