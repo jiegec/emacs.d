@@ -124,12 +124,11 @@
   (evil-leader/set-key
     "if" 'cnfonts-increase-fontsize
     "df" 'cnfonts-decrease-fontsize)
-  (evil-set-initial-state 'cnfonts-ui-mode 'motion)
+  (evil-set-initial-state 'cnfonts-ui-mode 'emacs)
   :config
   (my/set cnfonts-personal-fontnames
           '(("Arial Unicode MS"
-             "Inconsolata for Powerline"
-             "Apple Color Emoji")
+             "Inconsolata for Powerline")
             ("WenQuanYi Micro Hei Mono")
             ("Hanazono Mincho B"))
           cnfonts-use-face-font-rescale t)
