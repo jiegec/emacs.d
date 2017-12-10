@@ -26,13 +26,13 @@
     :ensure t
     :after company
     :config
-    (push 'company-irony company-backends))
+    (add-to-list 'company-backends 'company-irony))
 
   (use-package flycheck-irony
     :ensure t
     :after flycheck
     :config
-    (push 'irony flycheck-checkers))
+    (add-to-list 'flycheck-checkers 'irony))
 
   (use-package irony-eldoc
     :ensure t
@@ -47,7 +47,7 @@
   :defer
   :after company
   :config
-  (push 'company-c-headers company-backends))
+  (add-to-list 'company-backends 'company-c-headers))
 
 (use-package cmake-ide
   :ensure t
@@ -64,6 +64,8 @@
 (use-package ggtags
   :ensure t
   :defer
+  :diminish
+  ggtags-mode
   :init
   (evil-leader/set-key
     "ft" 'ggtags-find-tag-dwim
@@ -110,7 +112,7 @@
    ("\\.cmake\\'" . cmake-mode))
   :init
   (with-eval-after-load 'company
-    (push 'company-cmake company-backends)))
+    (add-to-list 'company-backends 'company-cmake)))
 
 (use-package gdb-mi
   :defer
@@ -128,14 +130,32 @@
 (use-package bison-mode
   :ensure t)
 
+(use-package cquery
+  :load-path
+  "/Volumes/Data/cquery/emacs"
+  :config
+  (evil-leader/set-key-for-mode 'c++-mode
+    "xn" 'lsp-xref--select-next
+    "xp" 'lsp-xref--select-prev)
+  (evil-leader/set-key-for-mode 'c-mode
+    "xn" 'lsp-xref--select-next
+    "xp" 'lsp-xref--select-prev)
+  (my/set
+   cquery-executable "/Volumes/Data/cquery/build/app"
+   cquery-resource-dir "/Volumes/Data/cquery/clang_resource_dir"))
+
 (with-eval-after-load 'company
-  (push 'company-clang company-backends))
+  (add-to-list 'company-backends 'company-clang))
 (defun init-c ()
   "Init C/C++ modes."
-  (c-toggle-auto-newline 1)
-  (my/enable-modes
-    ggtags-mode
-    irony-mode))
+  ;; (c-toggle-auto-newline 1)
+  ;; (lsp-clangd-enable)
+  (when (and (buffer-file-name) (file-exists-p (buffer-file-name)))
+    (lsp-cquery-enable))
+  ;; (my/enable-modes
+  ;;   ggtags-mode
+  ;;   irony-mode)
+  )
 
 (add-hook 'c++-mode-hook
           'init-c)

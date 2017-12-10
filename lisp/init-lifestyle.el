@@ -53,10 +53,11 @@
             "http://planet.emacsen.org/zh/atom.xml")
           elfeed-use-curl t))
 
-(use-package org-eww-mode
+(use-package org-eww
   :ensure org-eww
-  :after org
-  :config
+  :commands
+  org-eww-mode
+  :init
   (add-hook 'org-mode-hook 'org-eww-mode))
 
 (use-package htmlize

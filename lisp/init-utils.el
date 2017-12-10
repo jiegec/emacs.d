@@ -48,7 +48,8 @@
     "gg" 'counsel-git-grep
     "gl" 'counsel-git-lot
     "gs" 'counsel-git-stash
-    "lk" 'counsel-locate)
+    "lk" 'counsel-locate
+    "rc" 'counsel-recoll)
   :bind
   ("C-s" . counsel-grep-or-swiper)
   ("C-x 8 RET" . counsel-unicode-char)
@@ -351,8 +352,9 @@ _f_ auto-fill-mode:           %`auto-fill-function
   :config
   (projectile-global-mode t)
   (my/set projectile-completion-system 'ivy
-           projectile-use-git-grep t
-           projectile-switch-project-action 'projectile-commander)
+          projectile-use-git-grep t
+          projectile-mode-line '(:eval (format " P[%s]" (projectile-project-name)))
+          projectile-switch-project-action 'projectile-commander)
   (def-projectile-commander-method ?s
     "Open a *eshell* buffer for the project."
     (projectile-run-eshell))
@@ -395,20 +397,62 @@ _f_ auto-fill-mode:           %`auto-fill-function
 (use-package sift
   :ensure t)
 
+(quelpa '(lsp-mode :fetcher github :repo "emacs-lsp/lsp-mode"))
 (use-package lsp-mode
   :ensure t
+  :diminish
+  lsp-mode
   :commands
   (lsp-mode)
   :init
-  (add-hook 'prog-mode-hook 'lsp-mode)
+  ;; (add-hook 'prog-mode-hook 'lsp-mode)
   :config
-  (require 'lsp-flycheck))
+  ;; (defun get-compdb-dir ()
+  ;;   "Find where compile-commands.json locates."
+  ;;   (let ((compdb (expand-file-name (concat (projectile-project-root) projectile-project-compilation-dir))))
+  ;;     (if (file-exists-p (concat compdb "/compile_commands.json"))
+  ;;         compdb
+  ;;       (user-error "Could not find project compilation db"))))
+  ;; (defun get-clangd-command ()
+  ;;   "Return clangd command."
+  ;;   `;; ("/usr/local/opt/llvm/bin/clangd" ,(concat "-compile-commands-dir=" (get-compdb-dir)) supported only in upstream
+  ;;   ("/usr/local/opt/llvm/bin/clangd"))
+  ;; )
+  ;; (lsp-define-stdio-client
+  ;;  lsp-clangd
+  ;;  "c++"
+  ;;  #'get-project-root
+  ;;  nil
+  ;;  :command-fn #'get-clangd-command)
+  (lsp-define-stdio-client
+   lsp-pyls
+   "python"
+   #'get-project-root
+   '("/usr/local/bin/pyls"))
+  )
+
+(quelpa '(lsp-ui :fetcher github :repo "emacs-lsp/lsp-ui"))
+(use-package lsp-ui
+  :commands
+  lsp-ui-mode
+  :init
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+
+;; (use-package company-lsp
+;;   :ensure t
+;;   :after lsp-mode
+;;   :init
+;;   (with-eval-after-load 'company
+;;     (add-to-list 'company-backends 'lsp-mode)))
 
 (use-package emr
-  :ensure t
+  :diminish
+  emr-c-mode
   :commands
   emr-initialize
   :init
+  (evil-leader/set-key
+    "re" 'emr-show-refactor-menu)
   (add-hook 'prog-mode-hook 'emr-initialize))
 
 (use-package ein
@@ -445,7 +489,7 @@ _f_ auto-fill-mode:           %`auto-fill-function
     "sh" 'vterm))
 
 (use-package neotree
-  :ensure
+  :ensure t
   :commands
   neotree-toggle
   :init

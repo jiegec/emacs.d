@@ -63,6 +63,13 @@ BODY is same as `setq'."
   (interactive)
   (insert (format-time-string "%Y-%m-%d %H:%M:%S +0800")))
 
+(defun get-project-root ()
+  "Find the project's root directory."
+  (cond
+   ((and (featurep 'projectile) (projectile-project-p)) (projectile-project-root))
+   ((vc-backend default-directory) (expand-file-name (vc-root-dir)))
+   (t default-directory)))
+
 (evil-leader/set-key
   "ts" 'my/timestamp
   "rl" 'my/reload-emacs-init-file)

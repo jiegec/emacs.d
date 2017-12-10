@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# -*- coding: utf-8 -*-
+# name: reveal-header
+# --
+# -*- org-export-babel-evaluate: nil -*-
+#+REVEAL_ROOT: https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/
+#+REVEAL_HLEVEL: 2
+#+REVEAL_PLUGINS: (highlight)
+#+AUTHOR: 陈嘉杰
+#+EMAIL: jiegec@qq.com
+#+TITLE: $1
+#+STARTUP: showall

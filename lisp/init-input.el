@@ -9,6 +9,7 @@
 (require 'my-funcs)
 (require 'init-evil)
 
+;; (quelpa '(pyim :fetcher github :repo "tumashu/pyim"))
 (use-package pyim
   :ensure t
   :config
@@ -30,7 +31,8 @@
                   pyim-probe-punctuation-after-punctuation))
   
   (my/set pyim-isearch-enable-pinyin-search t
-          pyim-use-tooltip 'popup
+          pyim-page-tooltip 'popup
+          pyim-dcache-prefer-emacs-thread nil
           pyim-enable-words-predict '(pinyin-similar
                                       pinyin-shouimu
                                       pinyin-znabc)
@@ -40,7 +42,7 @@
   ;;       '((:name "pyim-bigdict" :file "~/.emacs.d/dicts/pyim-bigdict.pyim" :coding utf-8-unix :dict-type pinyin-dict)))
   (global-set-key (kbd "M-f") 'pyim-forward-word)
   (global-set-key (kbd "M-b") 'pyim-backward-word)
-  (global-set-key (kbd "s-p") 'pyim-convert-code-at-point)
+  (global-set-key (kbd "s-l") 'pyim-convert-code-at-point)
   :diminish
   pyim-isearch-mode)
 
@@ -52,15 +54,17 @@
   (pyim-greatdict-enable))
 
 (use-package pyim-basedict
-  :ensure
+  :ensure t
   :after pyim
   :config
   (pyim-basedict-enable))
 
-;; (use-package fcitx
-;;   :ensure t
-;;   :config
-;;   (fcitx-default-setup))
+(use-package fcitx
+  :ensure t
+  :config 
+  (fcitx-M-x-turn-on)
+  (fcitx-aggressive-setup))
+
 
 ;; (defun --set-emoji-font (frame)
 ;;   "Adjust the font settings of FRAME so Emacs can display emoji properly."
@@ -122,6 +126,7 @@
   :ensure t
   :init
   (evil-leader/set-key
+    "sf" 'cnfonts-set-font-with-saved-step
     "if" 'cnfonts-increase-fontsize
     "df" 'cnfonts-decrease-fontsize)
   (evil-set-initial-state 'cnfonts-ui-mode 'emacs)

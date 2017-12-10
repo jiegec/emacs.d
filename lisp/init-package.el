@@ -51,15 +51,15 @@
   (with-temp-buffer
     (url-insert-file-contents "https://raw.github.com/quelpa/quelpa/master/bootstrap.el")
     (eval-buffer)))
+(setq quelpa-checkout-melpa-p nil)
 
 ;; (unless (package-installed-p 'use-package)
 ;;   (package-install 'use-package))
-(require 'quelpa)
-(setq quelpa-checkout-melpa-p nil)
 ;; temporary fix
-(quelpa '(use-package :fetcher github :repo "jwiegley/use-package"))
+;; (quelpa '(use-package :fetcher github :repo "jwiegley/use-package"))
 (require 'use-package)
-(setq use-package-verbose 'debug)
+(setq use-package-verbose 'debug
+      use-package-minimum-reported-time 0)
 
 
 (provide 'init-package)

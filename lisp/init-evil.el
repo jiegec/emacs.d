@@ -26,6 +26,9 @@
   (evil-set-initial-state 'dired-mode 'emacs)
   (evil-set-initial-state 'osx-dictionary-mode 'emacs)
   (evil-set-initial-state 'vterm-mode 'emacs)
+  (defun unbind-M-dot ()
+    (define-key evil-normal-state-map (kbd "M-.") nil))
+  (add-hook 'evil-mode-hook 'unbind-M-dot)
   (evil-mode t))
 
 (provide 'init-evil)

@@ -10,7 +10,8 @@
   :defer
   :ensure t
   :config
-  (elpy-enable))
+  ;; (elpy-enable)
+  )
 
 (use-package anaconda-mode
   :ensure t
@@ -18,8 +19,11 @@
   anaconda-mode
   anaconda-eldoc-mode
   :init
-  (add-hook 'python-mode-hook 'anaconda-mode)
-  (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
+  ;; (add-hook 'python-mode-hook 'anaconda-mode)
+  ;; (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+  )
+
+(add-hook 'python-mode-hook 'lsp-pyls-enable)
 
 (provide 'init-python)
 ;;; init-python.el ends here
