@@ -318,6 +318,22 @@
   :defer
   :config)
 
+(use-package dired-sidebar
+  :ensure t
+  :init
+  (evil-leader/set-key
+    "sb" 'dired-sidebar-toggle-sidebar)
+  :commands
+  (dired-sidebar-toggle-sidebar)
+  :config
+  (if (display-graphic-p)
+      (my/set dired-sidebar-theme 'icons)
+    (my/set dired-sidebar-theme 'nerd))
+  (my/set dired-sidebar-use-term-integration t)
+  (use-package all-the-icons-dired
+    :ensure t
+    :commands (all-the-icons-dired-mode)))
+
 ;; (use-package mode-icons
 ;;   :ensure t
 ;;   :config

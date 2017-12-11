@@ -497,5 +497,17 @@ _f_ auto-fill-mode:           %`auto-fill-function
     "nt" 'neotree-toggle)
   :defer)
 
+(use-package imenu-list
+  :ensure t
+  :commands
+  imenu-list-smart-toggle
+  :init
+  (evil-leader/set-key
+    "il" 'imenu-list-smart-toggle)
+  :config
+  (my/set imenu-list-focus-after-activation t
+          imenu-list-position 'left
+          imenu-list-auto-resize t))
+
 (provide 'init-utils)
 ;;; init-utils.el ends here

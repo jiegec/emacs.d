@@ -19,10 +19,22 @@
   :diminish
   haskell-doc-mode)
 
+(use-package flycheck-haskell
+  :ensure t
+  :config
+  (with-eval-after-load 'flycheck
+    (add-hook 'flycheck-mode-hook 'flycheck-haskell-setup)))
+
+;; (use-package flycheck-liquidhs
+;;   :ensure t
+;;   :init
+;;   (with-eval-after-load 'flycheck
+;;     (add-to-list 'flycheck-checkers 'haskell-liquid)))
+
 (use-package shm
   :ensure t
   :defer
-  :config
+  ;; :config
   ;; (add-hook 'haskell-mode-hook 'structured-haskell-mode)
   :diminish
   structured-haskell-mode)
@@ -31,8 +43,8 @@
   :ensure t
   :defer
   :init
-  ;; (with-eval-after-load 'company
-  ;;   (add-to-list 'company-backends 'company-ghc))
+  (with-eval-after-load 'company
+    (add-to-list 'company-backends 'company-ghc))
   :commands
   company-ghc)
 
@@ -46,15 +58,16 @@
   :defer
   :commands intero-mode)
 
-;; (use-package lsp-haskell
-;;   :ensure t
-;;   :commands
-;;   (lsp-haskell-enable))
+(use-package lsp-haskell
+  :ensure t
+  :defer
+  :commands
+  (lsp-haskell-enable))
 
 (add-hook 'haskell-mode-hook (lambda ()
                                (aggressive-indent-mode -1)
-                               ;; (lsp-haskell-enable)
-                               (intero-mode t)
+                               (lsp-haskell-enable)
+                               ;; (intero-mode t)
                                ))
 
 (provide 'init-haskell)
