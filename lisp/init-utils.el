@@ -309,6 +309,26 @@ _f_ auto-fill-mode:           %`auto-fill-function
   :config
   (my/set git-messenger:show-detail t))
 
+(use-package git-timemachine
+  :ensure t
+  :commands
+  (git-timemachine-toggle)
+  :init
+  ;; (evil-set-initial-state 'git-timemachine-mode 'emacs)
+  (add-hook 'git-timemachine-mode-hook 'evil-emacs-state)
+  (evil-leader/set-key
+    "gt" 'git-timemachine-toggle))
+
+(use-package git-link
+  :ensure t
+  :commands
+  (git-link)
+  :init
+  (evil-leader/set-key
+    "gl" 'git-link
+    "gc" 'git-link-commit
+    "gh" 'git-link-homepage))
+
 (use-package quickrun
   :ensure t
   :bind
@@ -508,6 +528,19 @@ _f_ auto-fill-mode:           %`auto-fill-function
   (my/set imenu-list-focus-after-activation t
           imenu-list-position 'left
           imenu-list-auto-resize t))
+
+(use-package copy-as-format
+  :ensure t
+  :commands
+  (copy-as-format)
+  :init
+  (defun copy-as-format-choose ()
+    (interactive)
+    (let ((current-prefix-arg "C-u"))
+      (call-interactively 'copy-as-format))
+    (simpleclip-set-contents (car kill-ring)))
+  (evil-leader/set-key
+    "cp" 'copy-as-format-choose))
 
 (provide 'init-utils)
 ;;; init-utils.el ends here

@@ -141,7 +141,7 @@
     "xn" 'lsp-xref--select-next
     "xp" 'lsp-xref--select-prev)
   (my/set
-   cquery-executable "/Volumes/Data/cquery/build/app"
+   cquery-executable "/Volumes/Data/cquery/build/release/bin/cquery"
    cquery-resource-dir "/Volumes/Data/cquery/clang_resource_dir"))
 
 (with-eval-after-load 'company
