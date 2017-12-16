@@ -1,4 +1,4 @@
-;;; init-c.el --- Init file for c.
+;;; init-c.el --- Init file for c. -*- lexical-binding: t -*-
 ;; Author: Jiege Chen <jiegec@qq.com>
 ;; Homepage: https://github.com/jiegec
 
@@ -142,10 +142,12 @@
     "xp" 'lsp-xref--select-prev)
   (my/set
    cquery-executable "/Volumes/Data/cquery/build/release/bin/cquery"
-   cquery-resource-dir "/Volumes/Data/cquery/clang_resource_dir"))
+   cquery-additional-arguments '("--log-stdin-stdout-to-stderr" "--log-file" "/Volumes/Data/temp/cquery.log")
+   ;; cquery-resource-dir "/usr/local/opt/llvm/lib/clang/5.0.0"
+   ))
 
-(with-eval-after-load 'company
-  (add-to-list 'company-backends 'company-clang))
+;; (with-eval-after-load 'company
+;;   (add-to-list 'company-backends 'company-clang))
 (defun init-c ()
   "Init C/C++ modes."
   ;; (c-toggle-auto-newline 1)

@@ -1,4 +1,4 @@
-;;; init-package.el --- Init code for package.el.
+;;; init-package.el --- Init code for package.el. -*- lexical-binding: t -*-
 ;; Author: Jiege Chen <jiegec@qq.com>
 ;; Homepage: https://github.com/jiegec
 
@@ -60,6 +60,7 @@
 (require 'use-package)
 (setq use-package-verbose 'debug
       use-package-minimum-reported-time 0)
+(require 'diminish)
 
 
 (provide 'init-package)

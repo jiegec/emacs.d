@@ -1,4 +1,4 @@
-;;; init-go.el --- Init code for go.
+;;; init-go.el --- Init code for go. -*- lexical-binding: t -*-
 ;; Author: Jiege Chen <jiegec@qq.com>
 ;; Homepage: https://github.com/jiegec
 

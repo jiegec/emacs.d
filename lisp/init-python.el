@@ -1,4 +1,4 @@
-;;; init-python --- The init file for python.
+;;; init-python --- The init file for python. -*- lexical-binding: t -*-
 ;; Author: Jiege Chen <jiegec@qq.com>
 ;; Homepage: https://github.com/jiegec
 

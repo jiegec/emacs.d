@@ -1,4 +1,4 @@
-;;; init-input.el --- Init code for input.
+;;; init-input.el --- Init code for input. -*- lexical-binding: t -*-
 ;; Author: Jiege Chen <jiegec@qq.com>
 ;; Homepage: https://github.com/jiegec
 
@@ -37,14 +37,11 @@
                                       pinyin-shouimu
                                       pinyin-znabc)
           pyim-page-length 5)
-  (pyim-isearch-mode 1)
   ;; (setq pyim-dicts
   ;;       '((:name "pyim-bigdict" :file "~/.emacs.d/dicts/pyim-bigdict.pyim" :coding utf-8-unix :dict-type pinyin-dict)))
   (global-set-key (kbd "M-f") 'pyim-forward-word)
   (global-set-key (kbd "M-b") 'pyim-backward-word)
-  (global-set-key (kbd "s-l") 'pyim-convert-code-at-point)
-  :diminish
-  pyim-isearch-mode)
+  (global-set-key (kbd "s-l") 'pyim-convert-code-at-point))
 
 
 (use-package pyim-greatdict

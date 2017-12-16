@@ -1,4 +1,4 @@
-;;; init-evil.el --- Init code for evil.
+;;; init-evil.el --- Init code for evil. -*- lexical-binding: t -*-
 ;; Author: Jiege Chen <jiegec@qq.com>
 ;; Homepage: https://github.com/jiegec
 

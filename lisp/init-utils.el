@@ -1,4 +1,4 @@
-;;; init-utils.el --- Init file for utils.
+;;; init-utils.el --- Init file for utils. -*- lexical-binding: t -*-
 ;; Author: Jiege Chen <jiegec@qq.com>
 ;; Homepage: https://github.com/jiegec
 
@@ -100,7 +100,7 @@
   :ensure t
   :config
   (my/set sml/no-confirm-load-theme t ;; This comes first or it will ask you whether load themes that load lisp code
-           sml/theme 'respectful)
+          sml/theme 'respectful)
   (add-to-list 'sml/replacer-regexp-list '("^~/Library/Mobile Documents/com~apple~CloudDocs/" ":iCloud:") t)
   (add-to-list 'sml/replacer-regexp-list '("^/Volumes/Data/" ":Data:") t)
   (sml/setup))
@@ -141,7 +141,7 @@
   :ensure t
   :config
   (my/set undo-tree-auto-save-history t
-           undo-tree-history-directory-alist '((".*" . "~/.emacs.d/undo-tree-history")))
+          undo-tree-history-directory-alist '((".*" . "~/.emacs.d/undo-tree-history")))
   (global-undo-tree-mode 1)
   :diminish
   undo-tree-mode)
@@ -156,7 +156,7 @@
 (use-package which-key
   :ensure t
   :config
-  (my/set which-key-idle-delay 3
+  (my/set which-key-idle-delay 3.0
           which-key-allow-evil-operators t)
   (which-key-mode 1)
   :diminish
@@ -201,7 +201,6 @@ _w_ whitespace-mode:          %`whitespace-mode
 _i_ indent-tabs-mode:         %`indent-tabs-mode
 _p_ smartparens-mode:         %`smartparens-mode
 _c_ counsel-mode:             %`counsel-mode
-_l_ lispy-mode:               %`lispy-mode
 _f_ auto-fill-mode:           %`auto-fill-function
 
 "
@@ -212,9 +211,9 @@ _f_ auto-fill-mode:           %`auto-fill-function
     ("i" toggle-indent-tabs-mode nil)
     ("p" smartparens-mode nil)
     ("c" counsel-mode nil)
-    ("l" lispy-mode nil)
     ("f" auto-fill-mode nil)
-    ("q" nil "quit"))
+    ("q" nil "quit")
+    ("<f5>" nil "quit"))
   (global-set-key (kbd "<f5>") 'hydra-toggle/body))
 
 (use-package magit
@@ -227,8 +226,8 @@ _f_ auto-fill-mode:           %`auto-fill-function
   :defer
   :config
   (my/set helm-candidate-number-limit 1024
-           helm-input-idle-delay 0.01
-           helm-move-to-line-cycle-in-source t))
+          helm-input-idle-delay 0.01
+          helm-move-to-line-cycle-in-source t))
 
 (use-package yasnippet
   :ensure t
@@ -293,9 +292,9 @@ _f_ auto-fill-mode:           %`auto-fill-function
   (("\\.pdf\\'" . pdf-mode))
   :config
   (pdf-tools-install)
-  (setq pdf-view-resize-factor 1.1)
-  (add-hook 'pdf-view-mode-hook (lambda () (cua-mode 0)))
-  (setq-default pdf-view-display-size 'fit-page))
+  (my/set pdf-view-resize-factor 1.1
+          pdf-view-display-size 'fit-page)
+  (add-hook 'pdf-view-mode-hook (lambda () (cua-mode -1))))
 
 (use-package dtrt-indent
   :ensure t
@@ -352,7 +351,12 @@ _f_ auto-fill-mode:           %`auto-fill-function
   :ensure t)
 
 (use-package refine
-  :ensure t)
+  :ensure t
+  :commands
+  refine
+  :init
+  (evil-leader/set-key
+    "rf" 'refine))
 
 (use-package find-file-in-project
   :ensure t
@@ -360,6 +364,8 @@ _f_ auto-fill-mode:           %`auto-fill-function
   ("s-F" . find-file-in-current-directory))
 
 (use-package projectile-sift
+  :commands
+  projectile-sift
   :ensure t)
 
 (use-package projectile
@@ -414,10 +420,7 @@ _f_ auto-fill-mode:           %`auto-fill-function
   ("C-c J" . dumb-jump-back)
   ("C-c l" . dumb-jump-quick-look))
 
-(use-package sift
-  :ensure t)
-
-(quelpa '(lsp-mode :fetcher github :repo "emacs-lsp/lsp-mode"))
+;; (quelpa '(lsp-mode :fetcher github :repo "emacs-lsp/lsp-mode"))
 (use-package lsp-mode
   :ensure t
   :diminish
@@ -448,8 +451,7 @@ _f_ auto-fill-mode:           %`auto-fill-function
    lsp-pyls
    "python"
    #'get-project-root
-   '("/usr/local/bin/pyls"))
-  )
+   '("/usr/local/bin/pyls")))
 
 (quelpa '(lsp-ui :fetcher github :repo "emacs-lsp/lsp-ui"))
 (use-package lsp-ui
@@ -476,6 +478,7 @@ _f_ auto-fill-mode:           %`auto-fill-function
   (add-hook 'prog-mode-hook 'emr-initialize))
 
 (use-package ein
+  :defer
   :ensure t)
 
 ;; (use-package xcode-mode
@@ -490,14 +493,12 @@ _f_ auto-fill-mode:           %`auto-fill-function
 
 (quelpa
  '(discourse :fetcher github :repo "lujun9972/discourse-api"))
+(use-package discourse)
 
 (quelpa
  '(discourse-view :fetcher github :repo "lujun9972/discourse-view.el"))
 
-(require 'discourse)
-(require 'discourse-view-topic)
-(require 'discourse-view-category)
-(require 'discourse-view)
+(use-package discourse-view)
 
 (use-package vterm
   :defer

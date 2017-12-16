@@ -1,4 +1,4 @@
-;;; init-haskell.el --- Init file for haskell.
+;;; init-haskell.el --- Init file for haskell. -*- lexical-binding: t -*-
 ;; Author: Jiege Chen <jiegec@qq.com>
 ;; Homepage: https://github.com/jiegec
 

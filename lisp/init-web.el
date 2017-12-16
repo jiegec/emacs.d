@@ -1,4 +1,4 @@
-;;; init-web.el --- Init file for web.
+;;; init-web.el --- Init file for web. -*- lexical-binding: t -*-
 ;; Author: Jiege Chen <jiegec@qq.com>
 ;; Homepage: https://github.com/jiegec
 

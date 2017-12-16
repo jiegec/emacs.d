@@ -1,4 +1,4 @@
-;;; init-clojure --- The init file for clojure code.
+;;; init-clojure --- The init file for clojure code. -*- lexical-binding: t -*-
 ;; Author: Jiege Chen <jiegec@qq.com>
 ;; Homepage: https://github.com/jiegec
 

@@ -1,4 +1,4 @@
-;;; init-proof.el --- Init file for proof.
+;;; init-proof.el --- Init file for proof. -*- lexical-binding: t -*-
 ;; Author: Jiege Chen <jiegec@qq.com>
 ;; Homepage: https://github.com/jiegec
 
@@ -13,7 +13,7 @@
   :load-path
   "/usr/local/share/emacs/site-lisp/proof-general/generic"
   :config
-  (setq proof-three-window-enable t))
+  (my/set proof-three-window-enable t))
 
 (defun disable-modes-in-coq ()
   "Disable unwanted modes in Coq."

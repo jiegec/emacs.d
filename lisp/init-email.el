@@ -1,4 +1,4 @@
-;;; init-email.el --- Init file for email.
+;;; init-email.el --- Init file for email. -*- lexical-binding: t -*-
 ;; Author: Jiege Chen <jiegec@qq.com>
 ;; Homepage: https://github.com/jiegec
 

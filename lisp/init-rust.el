@@ -1,4 +1,4 @@
-;;; init-rust.el --- Init file for rust.
+;;; init-rust.el --- Init file for rust. -*- lexical-binding: t -*-
 ;; Author: Jiege Chen <jiegec@qq.com>
 ;; Homepage: https://github.com/jiegec
 

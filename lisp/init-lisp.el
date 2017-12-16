@@ -1,4 +1,4 @@
-;;; init-lisp.el --- Init code for lisp modes.
+;;; init-lisp.el --- Init code for lisp modes. -*- lexical-binding: t -*-
 ;; Author: Jiege Chen <jiegec@qq.com>
 ;; Homepage: https://github.com/jiegec
 

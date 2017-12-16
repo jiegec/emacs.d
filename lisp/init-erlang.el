@@ -1,4 +1,4 @@
-;;; init-erlang.el --- Init code for erlang language.
+;;; init-erlang.el --- Init code for erlang language. -*- lexical-binding: t -*-
 ;; Author: Jiege Chen <jiegec@qq.com>
 ;; Homepage: https://github.com/jiegec
 

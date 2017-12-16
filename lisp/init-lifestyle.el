@@ -1,4 +1,4 @@
-;;; init-lifestyle.el --- Init code for lifestyle.
+;;; init-lifestyle.el --- Init code for lifestyle. -*- lexical-binding: t -*-
 ;; Author: Jiege Chen <jiegec@qq.com>
 ;; Homepage: https://github.com/jiegec
 
@@ -165,7 +165,6 @@
 
 (use-package nlinum
   :ensure t
-  :defer
   :config
   (add-hook 'nlinum-mode-hook
             (lambda ()
@@ -194,8 +193,8 @@
   :commands
   wttrin 
   :config
-  (my/set wttrin-default-cities '("Shenzhen"))
-  (defun wttrin-save-frame ()
+  (my/set wttrin-default-cities '("Beijing" "Shenzhen"))
+  (defun wttrin-save-frame (_)
     (window-configuration-to-register :pre-wttrin)
     (delete-other-windows)
     (save-frame-config)

@@ -1,4 +1,4 @@
-;;; init-elm.el --- Init file for elm.
+;;; init-elm.el --- Init file for elm. -*- lexical-binding: t -*-
 ;; Author: Jiege Chen <jiegec@qq.com>
 ;; Homepage: https://github.com/jiegec
 

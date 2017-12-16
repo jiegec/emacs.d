@@ -1,4 +1,4 @@
-;;; init.el --- Jiege Chen's init file.
+;;; init.el --- Jiege Chen's init file. -*- lexical-binding: t -*-
 ;; Author: Jiege Chen <jiegec@qq.com>
 ;; Homepage: https://github.com/jiegec
 

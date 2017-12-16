@@ -1,4 +1,4 @@
-;;; init-c.el --- Init file for c.
+;;; init-java.el --- Init file for java. -*- lexical-binding: t -*-
 ;; Author: Jiege Chen <jiegec@qq.com>
 ;; Homepage: https://github.com/jiegec
 
