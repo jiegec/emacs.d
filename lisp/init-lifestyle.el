@@ -182,7 +182,7 @@
   langtool-check
   :config
   (my/set langtool-language-tool-jar "/usr/local/opt/languagetool/libexec/languagetool-commandline.jar"
-           langtool-default-language "en-US"))
+          langtool-default-language "en-US"))
 
 ;; For save-frame-config
 (use-package frame-cmds
@@ -337,6 +337,13 @@
 ;;   :ensure t
 ;;   :config
 ;;   (mode-icons-mode t))
+
+;; (use-package solaire-mode
+;;   :ensure t
+;;   :config
+;;   (add-hook 'after-change-major-mode-hook #'turn-on-solarie-mode)
+;;   (add-hook 'after-revert-hook #'turn-on-solarie-mode)
+;;   (add-hook 'minibuffer-setup-hook #'solarie-mode-in-minibuffer))
 
 (provide 'init-lifestyle)
 ;;; init-lifestyle.el ends here

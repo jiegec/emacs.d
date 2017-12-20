@@ -163,6 +163,8 @@
           'init-c)
 (add-hook 'c-mode-hook
           'init-c)
+(add-hook 'objc-mode
+          'init-c)
 
 (provide 'init-c)
 ;;; init-c.el ends here

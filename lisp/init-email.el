@@ -167,6 +167,8 @@
   (mu4e-multi-enable))
 (use-package mu4e
   :defer
+  :commands
+  mu4e
   :bind
   (:map mu4e-view-mode-map
         ("<tab>" . shr-next-link)

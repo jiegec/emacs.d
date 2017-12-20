@@ -335,7 +335,8 @@ _f_ auto-fill-mode:           %`auto-fill-function
 
 (use-package realgud
   :ensure t
-  :defer)
+  :config
+  (add-hook 'realgud:gdb 'tool-bar-mode))
 
 (use-package simpleclip
   :ensure t

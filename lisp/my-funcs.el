@@ -70,10 +70,53 @@ BODY is same as `setq'."
    ((vc-backend default-directory) (expand-file-name (vc-root-dir)))
    (t default-directory)))
 
+(defun cps-convert (term cont)
+  "CPS convert term and call cont."
+  (pcase term
+    (`(,f ,e)
+     (let (($f (gensym 'f))
+           ($e (gensym 'e)))
+       (cps-convert f `(lambda (,$f)
+                         ,(cps-convert e `(lambda (,$e)
+                                            (funcall ,$f ,$e ,cont)))))))
+    (`(lambda (,v) ,e)
+     (let (($k (gensym 'k)))
+       `(funcall ,cont (lambda (,v ,$k)
+                         ,(cps-convert e $k)))))
+    (_
+     `(funcall ,cont ,term))))
+
+(defun cps-convert-program (term)
+  "CPS convert a program."
+  (cps-convert term '(lambda (ans) ans)))
+
+(defun M (expr)
+  "M : expr => aexp."
+  (pcase expr
+    (`(lambda (,var) ,expr)
+     (let (($k (gensym 'k)))
+       `(lambda (,var ,$k) ,(T expr $k))))
+    (_
+     expr)))
+
+(defun T (expr cont)
+  "T : expr . aexp => cexp."
+  (pcase expr
+    (`(lambda . ,_) `(funcall ,cont ,(M expr)))
+    (`(,f ,e)
+     (let (($f (gensym '$f))
+           ($e (gensym '$e)))
+       (T f `(lambda (,$f)
+               ,(T e `(lambda (,$e)
+                        (funcall ,$f ,$e ,cont)))))))
+    (_ `(funcall ,cont ,(M expr)))))
+(defun cps-convert-program-2 (term)
+  "CPS convert a program."
+  (T term '(lambda (ans) ans)))
+
 (evil-leader/set-key
   "ts" 'my/timestamp
   "rl" 'my/reload-emacs-init-file)
-
 
 (provide 'my-funcs)
 ;;; my-funcs.el ends here

@@ -36,6 +36,7 @@
                          ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
                          ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
                          ("sunrise-commander" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/sunrise-commander/")))
+(setq load-prefer-newer t)
 (package-initialize)
 ;; Oh no I want to use HTTPS!
 ;; (setq package-archives '(("ec-gnu" . "http://elpa.emacs-china.org/gnu/")
@@ -58,10 +59,24 @@
 ;; temporary fix
 ;; (quelpa '(use-package :fetcher github :repo "jwiegley/use-package"))
 (require 'use-package)
+(require 'diminish)
 (setq use-package-verbose 'debug
       use-package-minimum-reported-time 0)
-(require 'diminish)
 
+(use-package auto-compile
+  :ensure t
+  :config
+  (setq auto-compile-display-buffer nil
+        auto-compile-mode-line-counter t)
+  (auto-compile-on-load-mode)
+  (auto-compile-on-save-mode))
+
+;; (use-package exec-path-from-shell
+;;   :ensure t
+;;   :config
+;;   (when (memq window-system '(mac ns x))
+;;     (let ((shell-file-name "/usr/local/bin/fish"))
+;;       (exec-path-from-shell-initialize))))
 
 (provide 'init-package)
 ;;; init-package.el ends here
