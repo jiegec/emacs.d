@@ -69,12 +69,27 @@
   :mode
   ("\\.org\\'" . org-mode)
   :config
+  (use-package ox-latex
+    :config
+    ;; XeLaTeX
+    (my/set org-latex-pdf-process '("latexmk -xelatex -quiet -shell-escape -f %f"))
+    (add-to-list 'org-latex-packages-alist '("" "xeCJK"))
+    (add-to-list 'org-latex-packages-alist "\\setCJKmainfont{Songti SC}")
+
+    ;; Code listing in LaTeX
+    (my/set org-latex-listings 'minted
+            org-latex-minted-options '(("linenos")
+                                       ("numbersep" "5pt")
+                                       ("breaklines")))
+    (add-to-list 'org-latex-packages-alist '("newfloat" "minted")))
+
   (my/set org-agenda-files (list "~/Library/Mobile Documents/com~apple~CloudDocs/main.org")
           org-contacts-files "~/iCloud/contacts.org"
           org-src-fontify-natively t
           org-src-tab-acts-natively t
           ;; org-export-async-init-file "~/.emacs.d/lisp/init-org-async.el"
           org-confirm-babel-evaluate nil)
+
   ;; allow quotes in inline in verbatim and code
   ;; and allow Chinese characters before and after
   (setcar (nthcdr 0 org-emphasis-regexp-components) " \t('\"{\\cc")
@@ -88,13 +103,9 @@
    '((sh         . nil)
      (js         . t)
      (C          . t)
-     (R          . t)
-     (awk        . t)
      (coq        . t)
      (shell      . t)
      (emacs-lisp . t)
-     (scala      . t)
-     (clojure    . t)
      (tangle     . t)
      (python     . t)
      (haskell    . t)
@@ -103,14 +114,17 @@
   (use-package ox-clip
     :ensure t)
   
-  (require 'ox-gfm)
-  (require 'ox-odt)
-  (require 'ox-latex))
+  (use-package ox-gfm)
+  (use-package ox-odt
+    :config
+    (my/set org-odt-preferred-output-format "docx")))
 
+(quelpa '(ox-reveal :fetcher github :repo "alvarogonzalezsotillo/org-reveal"))
 (use-package ox-reveal
-  :ensure t
   :after org
-  :config)
+  :config
+  (my/set org-reveal-root "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/"
+          org-reveal-plugins '(classList markdown zoom notes highlight)))
 
 ;; ;; See https://emacs-china.org/t/file/696
 ;; ;; And http://lists.gnu.org/archive/html/emacs-orgmode/2016-07/msg00136.html
