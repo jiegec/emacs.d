@@ -63,30 +63,21 @@
 (use-package htmlize
   :ensure t)
 
-(use-package org-plus-contrib
-  :ensure t
-  :defer
+(use-package org
+  :ensure org-plus-contrib
   :mode
   ("\\.org\\'" . org-mode)
   :config
-  (use-package ox-latex
-    :config
-    ;; XeLaTeX
-    (my/set org-latex-pdf-process '("latexmk -xelatex -quiet -shell-escape -f %f"))
-    (add-to-list 'org-latex-packages-alist '("" "xeCJK"))
-    (add-to-list 'org-latex-packages-alist "\\setCJKmainfont{Songti SC}")
-
-    ;; Code listing in LaTeX
-    (my/set org-latex-listings 'minted
-            org-latex-minted-options '(("linenos")
-                                       ("numbersep" "5pt")
-                                       ("breaklines")))
-    (add-to-list 'org-latex-packages-alist '("newfloat" "minted")))
 
   (my/set org-agenda-files (list "~/Library/Mobile Documents/com~apple~CloudDocs/main.org")
           org-contacts-files "~/iCloud/contacts.org"
           org-src-fontify-natively t
           org-src-tab-acts-natively t
+          org-pretty-entities t
+          org-pretty-entities-include-sub-superscripts t
+          org-startup-folded 'showall
+          org-startup-indented t
+          org-footnote-auto-adjust t
           ;; org-export-async-init-file "~/.emacs.d/lisp/init-org-async.el"
           org-confirm-babel-evaluate nil)
 
@@ -109,12 +100,38 @@
      (tangle     . t)
      (python     . t)
      (haskell    . t)
+     (dot        . t)
      (ruby       . t)))
 
+  (use-package ox-latex
+    :config
+    ;; From Kuashal Modi's configuation
+    ;; Prevent an image from floating to a different location.
+    ;; http://tex.stackexchange.com/a/8633/52678
+    (add-to-list 'org-latex-packages-alist '("" "float"))
+    ;; Prevent tables/figures from one section to float into another section
+    ;; http://tex.stackexchange.com/a/282/52678
+    (add-to-list 'org-latex-packages-alist '("section" "placeins"))
+    :config
+    ;; org-latex-preview
+    (add-to-list 'org-latex-packages-alist '("mathscr" "eucal"))
+    (add-to-list 'org-latex-packages-alist '("" "latexsym"))
+    ;; XeLaTeX
+    ;; (my/set org-latex-compiler "xelatex")
+    (my/set org-latex-pdf-process '("latexmk -xelatex -quiet -shell-escape -f %f"))
+    (add-to-list 'org-latex-packages-alist "\\setCJKmainfont{Songti SC}")
+    (add-to-list 'org-latex-packages-alist '("" "xeCJK"))
+
+    ;; Code listing in LaTeX
+    (my/set org-latex-listings 'minted
+            org-latex-minted-options '(("linenos")
+                                       ("numbersep" "5pt")
+                                       ("breaklines")))
+    (add-to-list 'org-latex-packages-alist '("newfloat" "minted")))
   (use-package ox-clip
     :ensure t)
-  
-  (use-package ox-gfm)
+  (use-package ox-gfm
+    :ensure t)
   (use-package ox-odt
     :config
     (my/set org-odt-preferred-output-format "docx")))

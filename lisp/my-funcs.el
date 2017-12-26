@@ -118,5 +118,8 @@ BODY is same as `setq'."
   "ts" 'my/timestamp
   "rl" 'my/reload-emacs-init-file)
 
+(use-package ffi
+  :load-path "/Volumes/Data/emacs-ffi")
+
 (provide 'my-funcs)
 ;;; my-funcs.el ends here

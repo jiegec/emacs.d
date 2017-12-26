@@ -142,7 +142,7 @@
     "xp" 'lsp-xref--select-prev)
   (my/set
    cquery-executable "/Volumes/Data/cquery/build/release/bin/cquery"
-   cquery-additional-arguments '("--log-stdin-stdout-to-stderr" "--log-file" "/Volumes/Data/temp/cquery.log")
+   cquery-additional-arguments '("--enable-comments" "--log-stdin-stdout-to-stderr" "--log-file" "/Volumes/Data/temp/cquery.log")
    ;; cquery-resource-dir "/usr/local/opt/llvm/lib/clang/5.0.0"
    ))
 

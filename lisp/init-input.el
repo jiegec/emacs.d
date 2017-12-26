@@ -31,7 +31,7 @@
                   pyim-probe-punctuation-after-punctuation))
   
   (my/set pyim-isearch-enable-pinyin-search t
-          pyim-page-tooltip 'popup
+          pyim-page-tooltip 'child-frame
           pyim-dcache-prefer-emacs-thread nil
           pyim-enable-words-predict '(pinyin-similar
                                       pinyin-shouimu
