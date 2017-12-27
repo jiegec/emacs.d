@@ -428,8 +428,6 @@ _f_ auto-fill-mode:           %`auto-fill-function
   lsp-mode
   :commands
   (lsp-mode)
-  :init
-  ;; (add-hook 'prog-mode-hook 'lsp-mode)
   :config
   ;; (defun get-compdb-dir ()
   ;;   "Find where compile-commands.json locates."
@@ -437,29 +435,25 @@ _f_ auto-fill-mode:           %`auto-fill-function
   ;;     (if (file-exists-p (concat compdb "/compile_commands.json"))
   ;;         compdb
   ;;       (user-error "Could not find project compilation db"))))
-  ;; (defun get-clangd-command ()
-  ;;   "Return clangd command."
-  ;;   `;; ("/usr/local/opt/llvm/bin/clangd" ,(concat "-compile-commands-dir=" (get-compdb-dir)) supported only in upstream
-  ;;   ("/usr/local/opt/llvm/bin/clangd"))
-  ;; )
-  ;; (lsp-define-stdio-client
-  ;;  lsp-clangd
-  ;;  "c++"
-  ;;  #'get-project-root
-  ;;  nil
-  ;;  :command-fn #'get-clangd-command)
   (lsp-define-stdio-client
    lsp-pyls
    "python"
    #'get-project-root
    '("/usr/local/bin/pyls")))
 
-(quelpa '(lsp-ui :fetcher github :repo "emacs-lsp/lsp-ui"))
+(quelpa '(lsp-ui :fetcher github :repo "emacs-lsp/lsp-ui") :upgrade t)
 (use-package lsp-ui
   :commands
   lsp-ui-mode
   :init
-  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+  :config
+  (dolist (mode '(c++-mode c-mode objc-mode))
+    (evil-leader/set-key-for-mode mode
+      "xn" 'lsp-ui-peek--select-next
+      "xN" 'lsp-ui-peek--select-next-file
+      "xp" 'lsp-ui-peek--select-prev
+      "xP" 'lsp-ui-peek--select-prev-file)))
 
 ;; (use-package company-lsp
 ;;   :ensure t

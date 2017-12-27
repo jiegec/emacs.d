@@ -63,13 +63,13 @@
 (setq use-package-verbose 'debug
       use-package-minimum-reported-time 0)
 
-(use-package auto-compile
-  :ensure t
-  :config
-  (setq auto-compile-display-buffer nil
-        auto-compile-mode-line-counter t)
-  (auto-compile-on-load-mode)
-  (auto-compile-on-save-mode))
+;; (use-package auto-compile
+;;   :ensure t
+;;   :config
+;;   (setq auto-compile-display-buffer nil
+;;         auto-compile-mode-line-counter t)
+;;   (auto-compile-on-load-mode)
+;;   (auto-compile-on-save-mode))
 
 ;; (use-package exec-path-from-shell
 ;;   :ensure t

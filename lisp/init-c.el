@@ -119,10 +119,9 @@
   :commands
   gdb
   :init
-  (evil-leader/set-key-for-mode 'c-mode
-    "db" 'gdb)
-  (evil-leader/set-key-for-mode 'c++-mode
-    "db" 'gdb)
+  (dolist (mode '(c++-mode c-mode objc-mode))
+    (evil-leader/set-key-for-mode mode
+      "db" 'gdb))
   :config
   (my/set gdb-many-windows t
           gdb-show-main t))
@@ -133,23 +132,19 @@
 (use-package cquery
   :load-path
   "/Volumes/Data/cquery/emacs"
+  :commands
+  (lsp-cquery-enable)
   :config
-  (evil-leader/set-key-for-mode 'c++-mode
-    "xn" 'lsp-xref--select-next
-    "xp" 'lsp-xref--select-prev)
-  (evil-leader/set-key-for-mode 'c-mode
-    "xn" 'lsp-xref--select-next
-    "xp" 'lsp-xref--select-prev)
   (my/set
-   cquery-executable "/Volumes/Data/cquery/build/release/bin/cquery"
+   cquery-executable "/Volumes/Data/cquery/install/bin/cquery"
    cquery-additional-arguments '("--enable-comments" "--log-stdin-stdout-to-stderr" "--log-file" "/Volumes/Data/temp/cquery.log")
-   ;; cquery-resource-dir "/usr/local/opt/llvm/lib/clang/5.0.0"
+   ;; cquery-resource-dir "/usr/local/opt/llvm/lib/clang/5.0.1"
    ))
 
 ;; (with-eval-after-load 'company
 ;;   (add-to-list 'company-backends 'company-clang))
 (defun init-c ()
-  "Init C/C++ modes."
+  "Init C/C++/Obj-C modes."
   ;; (c-toggle-auto-newline 1)
   ;; (lsp-clangd-enable)
   (when (and (buffer-file-name) (file-exists-p (buffer-file-name)))
@@ -159,12 +154,10 @@
   ;;   irony-mode)
   )
 
-(add-hook 'c++-mode-hook
-          'init-c)
-(add-hook 'c-mode-hook
-          'init-c)
-(add-hook 'objc-mode
-          'init-c)
+(dolist (hook '(c++-mode-hook
+                c-mode-hook
+                objc-mode-hook))
+  (add-hook hook 'init-c))
 
 (provide 'init-c)
 ;;; init-c.el ends here

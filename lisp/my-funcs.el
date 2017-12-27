@@ -121,5 +121,16 @@ BODY is same as `setq'."
 (use-package ffi
   :load-path "/Volumes/Data/emacs-ffi")
 
+(defun unload-feature-recursive (feature)
+  "Unload features recursively."
+  (interactive (list
+                (read-feature "Unload feature: " t)))
+  (when (featurep feature)
+    (let* ((file (feature-file feature))
+           (dependents (delete file (copy-sequence (file-dependents file)))))
+      (when dependents
+        (mapc #'unload-feature-recursive (mapcan #'file-provides dependents)))
+      (unload-feature feature t))))
+
 (provide 'my-funcs)
 ;;; my-funcs.el ends here
