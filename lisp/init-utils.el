@@ -441,26 +441,27 @@ _f_ auto-fill-mode:           %`auto-fill-function
    #'get-project-root
    '("/usr/local/bin/pyls")))
 
-(quelpa '(lsp-ui :fetcher github :repo "emacs-lsp/lsp-ui") :upgrade t)
+(el-get-bundle lsp-ui
+  :url "https://github.com/emacs-lsp/lsp-ui.git")
+;; (quelpa '(lsp-ui :fetcher github :repo "emacs-lsp/lsp-ui"))
 (use-package lsp-ui
   :commands
   lsp-ui-mode
   :init
   (add-hook 'lsp-mode-hook 'lsp-ui-mode)
   :config
-  (dolist (mode '(c++-mode c-mode objc-mode))
-    (evil-leader/set-key-for-mode mode
-      "xn" 'lsp-ui-peek--select-next
-      "xN" 'lsp-ui-peek--select-next-file
-      "xp" 'lsp-ui-peek--select-prev
-      "xP" 'lsp-ui-peek--select-prev-file)))
+  (evil-leader/set-key
+    "xn" 'lsp-ui-peek--select-next
+    "xN" 'lsp-ui-peek--select-next-file
+    "xp" 'lsp-ui-peek--select-prev
+    "xP" 'lsp-ui-peek--select-prev-file))
 
-;; (use-package company-lsp
-;;   :ensure t
-;;   :after lsp-mode
-;;   :init
-;;   (with-eval-after-load 'company
-;;     (add-to-list 'company-backends 'lsp-mode)))
+(use-package company-lsp
+  :ensure t
+  :after lsp-mode
+  :init
+  (with-eval-after-load 'company
+    (add-to-list 'company-backends 'company-lsp)))
 
 (use-package emr
   :diminish
@@ -486,14 +487,17 @@ _f_ auto-fill-mode:           %`auto-fill-function
 ;; (require 'electric-align)
 ;; (add-hook 'prog-mode-hook 'electric-align-mode)
 
-(quelpa
- '(discourse :fetcher github :repo "lujun9972/discourse-api"))
-(use-package discourse)
+;; (quelpa
+;;  '(discourse :fetcher github :repo "lujun9972/discourse-api"))
+(el-get-bundle discourse
+  :url "https://github.com/lujun9972/discourse-api.git")
+;; (use-package discourse)
 
-(quelpa
- '(discourse-view :fetcher github :repo "lujun9972/discourse-view.el"))
-
-(use-package discourse-view)
+(el-get-bundle discourse
+  :url "https://github.com/lujun9972/discourse-view.el.git")
+;; (quelpa
+;;  '(discourse-view :fetcher github :repo "lujun9972/discourse-view.el"))
+;; (use-package discourse-view)
 
 (use-package vterm
   :defer

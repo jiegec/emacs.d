@@ -136,7 +136,9 @@
     :config
     (my/set org-odt-preferred-output-format "docx")))
 
-(quelpa '(ox-reveal :fetcher github :repo "alvarogonzalezsotillo/org-reveal"))
+;; (quelpa '(ox-reveal :fetcher github :repo "alvarogonzalezsotillo/org-reveal"))
+(el-get-bundle ox-reveal
+  :url "https://github.com/alvarogonzalezsotillo/org-reveal.git")
 (use-package ox-reveal
   :after org
   :config

@@ -119,6 +119,7 @@ BODY is same as `setq'."
   "rl" 'my/reload-emacs-init-file)
 
 (use-package ffi
+  :defer
   :load-path "/Volumes/Data/emacs-ffi")
 
 (defun unload-feature-recursive (feature)

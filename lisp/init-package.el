@@ -48,11 +48,11 @@
            (daemonp))
   (package-refresh-contents))
 
-(unless (require 'quelpa nil t)
-  (with-temp-buffer
-    (url-insert-file-contents "https://raw.github.com/quelpa/quelpa/master/bootstrap.el")
-    (eval-buffer)))
-(setq quelpa-checkout-melpa-p nil)
+;; (unless (require 'quelpa nil t)
+;;   (with-temp-buffer
+;;     (url-insert-file-contents "https://raw.github.com/quelpa/quelpa/master/bootstrap.el")
+;;     (eval-buffer)))
+;; (setq quelpa-checkout-melpa-p nil)
 
 ;; (unless (package-installed-p 'use-package)
 ;;   (package-install 'use-package))
@@ -62,6 +62,11 @@
 (require 'diminish)
 (setq use-package-verbose 'debug
       use-package-minimum-reported-time 0)
+
+(use-package el-get
+  :ensure t
+  :config
+  (setq el-get-notify-type 'message))
 
 ;; (use-package auto-compile
 ;;   :ensure t
