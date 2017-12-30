@@ -133,5 +133,28 @@ BODY is same as `setq'."
         (mapc #'unload-feature-recursive (mapcan #'file-provides dependents)))
       (unload-feature feature t))))
 
+;; From https://github.com/MaskRay/Config/blob/master/home/.emacs.d/layers/%2Bmy/my-code/funcs.el#L75
+(defvar my/realtime-elisp-doc-enabled nil)
+(defun my/realtime-elisp-doc-function ()
+  "A custom realtime elisp doc function."
+  (let ((w (selected-window)))
+    (when-let (s (intern-soft (current-word)))
+      (cond
+       ((fboundp s) (describe-function s))
+       ((boundp s) (describe-variable s)))
+      (select-window w t)
+      nil)))
+
+(defun my/realtime-elisp-doc ()
+  "My realtime elisp doc."
+  (interactive)
+  (when (eq major-mode 'emacs-lisp-mode)
+    (if (advice-function-member-p #'my/realtime-elisp-doc-function eldoc-documentation-function)
+        (progn
+          (remove-function (local 'eldoc-documentation-function) #'my/realtime-elisp-doc-function)
+          (setq my/realtime-elisp-doc-enabled nil))
+      (add-function :after-while (local 'eldoc-documentation-function) #'my/realtime-elisp-doc-function)
+      (setq my/realtime-elisp-doc-enabled t))))
+
 (provide 'my-funcs)
 ;;; my-funcs.el ends here

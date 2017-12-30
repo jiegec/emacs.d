@@ -196,6 +196,7 @@
     "
 _a_ abbrev-mode:              %`abbrev-mode
 _d_ debug-on-error:           %`debug-on-error
+_e_ realtime-elisp-doc        %`my/realtime-elisp-doc-enabled
 _t_ truncate-lines:           %`truncate-lines
 _w_ whitespace-mode:          %`whitespace-mode
 _i_ indent-tabs-mode:         %`indent-tabs-mode
@@ -206,6 +207,7 @@ _f_ auto-fill-mode:           %`auto-fill-function
 "
     ("a" abbrev-mode nil)
     ("d" toggle-debug-on-error nil)
+    ("e" my/realtime-elisp-doc nil)
     ("t" toggle-truncate-lines nil)
     ("w" whitespace-mode nil)
     ("i" toggle-indent-tabs-mode nil)
@@ -450,11 +452,14 @@ _f_ auto-fill-mode:           %`auto-fill-function
   :init
   (add-hook 'lsp-mode-hook 'lsp-ui-mode)
   :config
-  (evil-leader/set-key
-    "xn" 'lsp-ui-peek--select-next
-    "xN" 'lsp-ui-peek--select-next-file
-    "xp" 'lsp-ui-peek--select-prev
-    "xP" 'lsp-ui-peek--select-prev-file))
+  (with-eval-after-load evil
+    (add-to-list 'evil-overriding-maps '((lsp-ui-peek-mode-map . nil))))
+  ;; (evil-leader/set-key
+  ;;   "xn" 'lsp-ui-peek--select-next
+  ;;   "xN" 'lsp-ui-peek--select-next-file
+  ;;   "xp" 'lsp-ui-peek--select-prev
+  ;;   "xP" 'lsp-ui-peek--select-prev-file)
+  )
 
 (use-package company-lsp
   :ensure t
