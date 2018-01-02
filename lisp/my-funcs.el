@@ -122,6 +122,7 @@ BODY is same as `setq'."
   :defer
   :load-path "/Volumes/Data/emacs-ffi")
 
+(require 'loadhist)
 (defun unload-feature-recursive (feature)
   "Unload features recursively."
   (interactive (list

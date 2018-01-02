@@ -49,7 +49,7 @@
             "http://endlessparentheses.com/atom.xml"
             "http://icodeit.org/atom.xml"
             "http://blog.mojang.com/feed.xml"
-            "http://jiegec.github.io/feed.xml"
+            "https://jiegec.github.io/feed.xml"
             "http://planet.emacsen.org/zh/atom.xml")
           elfeed-use-curl t))
 
@@ -69,8 +69,8 @@
   ("\\.org\\'" . org-mode)
   :config
 
-  (my/set org-agenda-files (list "~/Library/Mobile Documents/com~apple~CloudDocs/main.org")
-          org-contacts-files "~/iCloud/contacts.org"
+  (my/set org-agenda-files (list "~/main.org")
+          org-contacts-files "~/contacts.org"
           org-src-fontify-natively t
           org-src-tab-acts-natively t
           org-pretty-entities t
@@ -365,6 +365,16 @@
   (use-package all-the-icons-dired
     :ensure t
     :commands (all-the-icons-dired-mode)))
+
+(use-package dashboard
+  :ensure t
+  :config
+  (evil-set-initial-state 'dashboard-mode 'emacs)
+  (my/set dashboard-items '((recents . 5)
+                            (bookmarks . 5)
+                            (projects . 5)
+                            (agenda . 5)))
+  (dashboard-setup-startup-hook))
 
 ;; (use-package mode-icons
 ;;   :ensure t

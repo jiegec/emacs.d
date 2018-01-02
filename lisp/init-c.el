@@ -134,6 +134,21 @@
   "/Volumes/Data/cquery/emacs"
   :commands
   (lsp-cquery-enable)
+  :init
+  (dolist (mode '(c++-mode c-mode objc-mode))
+    (evil-leader/set-key-for-mode mode
+      "xc" (lambda (&rest _)
+             (interactive)
+             (lsp-ui-peek-find-custom nil "$cquery/callers"))
+      "xb" (lambda (&rest _)
+             (interactive)
+             (lsp-ui-peek-find-custom nil "$cquery/base"))
+      "xD" (lambda (&rest _)
+             (interactive)
+             (lsp-ui-peek-find-custom nil "$cquery/derived"))
+      "xv" (lambda (&rest _)
+             (interactive)
+             (lsp-ui-peek-find-custom nil "$cquery/vars"))))
   :config
   (my/set
    cquery-executable "/Volumes/Data/cquery/install/bin/cquery"

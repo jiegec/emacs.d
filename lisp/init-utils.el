@@ -45,6 +45,7 @@
   :init
   (evil-leader/set-key
     "ag" 'counsel-ag
+    "rg" 'counsel-rg
     "gg" 'counsel-git-grep
     "gl" 'counsel-git-lot
     "gs" 'counsel-git-stash
@@ -379,9 +380,10 @@ _f_ auto-fill-mode:           %`auto-fill-function
   :bind-keymap*
   ("C-c p" . projectile-command-map)
   :config
-  (projectile-global-mode t)
+  (projectile-mode t)
   (my/set projectile-completion-system 'ivy
           projectile-use-git-grep t
+          projectile-enable-caching t
           projectile-mode-line '(:eval (format " P[%s]" (projectile-project-name)))
           projectile-switch-project-action 'projectile-commander)
   (def-projectile-commander-method ?s
@@ -406,7 +408,9 @@ _f_ auto-fill-mode:           %`auto-fill-function
   :bind
   ("s-P" . counsel-projectile)
   ("s-f" . counsel-projectile-find-file)
-  ("s-b" . counsel-projectile-switch-to-buffer))
+  ("s-b" . counsel-projectile-switch-to-buffer)
+  :config
+  (counsel-projectile-mode 1))
 
 (use-package suggest
   :ensure t)
@@ -424,8 +428,9 @@ _f_ auto-fill-mode:           %`auto-fill-function
   ("C-c l" . dumb-jump-quick-look))
 
 ;; (quelpa '(lsp-mode :fetcher github :repo "emacs-lsp/lsp-mode"))
+(el-get-bundle lsp-mode
+  :url "https://github.com/emacs-lsp/lsp-mode.git")
 (use-package lsp-mode
-  :ensure t
   :diminish
   lsp-mode
   :commands
@@ -452,8 +457,24 @@ _f_ auto-fill-mode:           %`auto-fill-function
   :init
   (add-hook 'lsp-mode-hook 'lsp-ui-mode)
   :config
-  (with-eval-after-load evil
-    (add-to-list 'evil-overriding-maps '((lsp-ui-peek-mode-map . nil))))
+  ;; (customize-set-variable 'evil-intercept-maps
+  ;;                         '((lsp-ui-peek-mode-map . nil)
+  ;;                           (edebug-mode-map . nil)))
+  ;; (customize-set-variable 'evil-overriding-maps
+  ;;                         '((lsp-ui-peek-mode-map . nil)
+  ;;                           (Buffer-menu-mode-map . nil)
+  ;;                           (color-theme-mode-map . nil)
+  ;;                           (comint-mode-map . nil)
+  ;;                           (compilation-mode-map . nil)
+  ;;                           (grep-mode-map . nil)
+  ;;                           (dictionary-mode-map . nil)
+  ;;                           (ert-results-mode-map . motion)
+  ;;                           (Info-mode-map . motion)
+  ;;                           (speedbar-key-map . nil)
+  ;;                           (speedbar-file-key-map . nil)
+  ;;                           (speedbar-buffers-key-map . nil)))
+  ;; (add-to-list 'evil-overriding-maps
+  ;;              '(lsp-ui-peek-mode-map . nil))
   ;; (evil-leader/set-key
   ;;   "xn" 'lsp-ui-peek--select-next
   ;;   "xN" 'lsp-ui-peek--select-next-file
@@ -461,12 +482,12 @@ _f_ auto-fill-mode:           %`auto-fill-function
   ;;   "xP" 'lsp-ui-peek--select-prev-file)
   )
 
-(use-package company-lsp
-  :ensure t
-  :after lsp-mode
-  :init
-  (with-eval-after-load 'company
-    (add-to-list 'company-backends 'company-lsp)))
+;; (use-package company-lsp
+;;   :ensure t
+;;   :after lsp-mode
+;;   :init
+;;   (with-eval-after-load 'company
+;;     (add-to-list 'company-backends 'company-lsp)))
 
 (use-package emr
   :diminish

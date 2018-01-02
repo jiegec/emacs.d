@@ -10,8 +10,9 @@
 (require 'init-evil)
 
 ;; (quelpa '(pyim :fetcher github :repo "tumashu/pyim"))
+(el-get-bundle pyim
+  :url "https://github.com/tumashu/pyim.git")
 (use-package pyim
-  :ensure t
   :config
   (my/set default-input-method "pyim")
   (global-set-key (kbd "C-\\") (lambda ()
