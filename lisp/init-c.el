@@ -130,8 +130,6 @@
   :ensure t)
 
 (use-package cquery
-  :load-path
-  "/Volumes/Data/cquery/emacs"
   :commands
   (lsp-cquery-enable)
   :init
@@ -151,10 +149,9 @@
              (lsp-ui-peek-find-custom nil "$cquery/vars"))))
   :config
   (my/set
+   cquery-extra-init-params '(:index (:comments 2 :builtinTypes t) :cacheFormat "msgpack") ;; for MessagePack
    cquery-executable "/Volumes/Data/cquery/install/bin/cquery"
-   cquery-additional-arguments '("--enable-comments" "--log-stdin-stdout-to-stderr" "--log-file" "/Volumes/Data/temp/cquery.log")
-   ;; cquery-resource-dir "/usr/local/opt/llvm/lib/clang/5.0.1"
-   ))
+   cquery-additional-arguments '("--log-stdin-stdout-to-stderr" "--log-file" "/Volumes/Data/temp/cquery.log")))
 
 ;; (with-eval-after-load 'company
 ;;   (add-to-list 'company-backends 'company-clang))

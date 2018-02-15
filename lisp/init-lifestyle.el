@@ -40,6 +40,7 @@
   :config
   (my/set elfeed-feeds
           '("http://planet.emacsen.org/atom.xml"
+            "https://www.phoronix.com/rss.php"
             "http://emacsredux.com/atom.xml"
             "http://batsov.com/atom.xml"
             "http://www.ruanyifeng.com/blog/atom.xml"
@@ -67,10 +68,31 @@
   :ensure org-plus-contrib
   :mode
   ("\\.org\\'" . org-mode)
+  :bind
+  ("C-c c" . org-capture)
+  ("C-c a" . org-agenda)
   :config
 
-  (my/set org-agenda-files (list "~/main.org")
+  (my/set org-agenda-files '("~/gtd/inbox.org"
+                             "~/gtd/gtd.org"
+                             "~/gtd/tickler.org")
+          org-capture-templates '(("t" "Todo [inbox]" entry
+                                   (file+headline "~/gtd/inbox.org" "Tasks")
+                                   "* TODO %i%?")
+                                  ("T" "Tickler" entry
+                                   (file+headline "~/gtd/tickler.org" "Tickler")
+                                   "* %i%? \n %U"))
+          org-refile-targets '(("~/gtd/gtd.org" :maxlevel . 3)
+                               ("~/gtd/someday.org" :level . 1)
+                               ("~/gtd/tickler.org" :maxlevel . 2))
           org-contacts-files "~/contacts.org"
+          org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)"))
+          org-agenda-custom-commands '(("S" "Study" tags-todo "@study"
+                                        ((org-agenda-overriding-header "Study")))
+                                       ("A" "Appointment" tags-todo "@appointment"
+                                        ((org-agenda-overriding-header "Appointment")))
+                                       ("R" "Relationship" tags-todo "@relationship"
+                                        ((org-agenda-overriding-header "Relationship"))))
           org-src-fontify-natively t
           org-src-tab-acts-natively t
           org-pretty-entities t
@@ -387,6 +409,12 @@
 ;;   (add-hook 'after-change-major-mode-hook #'turn-on-solarie-mode)
 ;;   (add-hook 'after-revert-hook #'turn-on-solarie-mode)
 ;;   (add-hook 'minibuffer-setup-hook #'solarie-mode-in-minibuffer))
+
+(use-package emms-setup
+  :ensure emms
+  :config
+  (emms-all)
+  (emms-default-players))
 
 (provide 'init-lifestyle)
 ;;; init-lifestyle.el ends here

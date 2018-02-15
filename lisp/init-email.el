@@ -192,7 +192,6 @@
               (flyspell-mode 1))))
 
 (use-package mu4e-alert
-  :defer
   :ensure t
   :config
   (my/set mu4e-alert-notify-repeated-mails t)

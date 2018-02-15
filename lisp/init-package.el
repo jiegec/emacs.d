@@ -27,15 +27,15 @@
 ;; 			 ("ec-org" . "https://git.oschina.net/EmacsChina/elpa/raw/master/org/")
 ;; 			 ("ec-melpa" . "https://git.oschina.net/EmacsChina/elpa/raw/master/melpa/")))
 ;; (package-initialize)
-;; (setq package-archives '(("gnu" . "http://elpa.emacs-china.org/gnu/")
-;;                          ("melpa" . "http://elpa.emacs-china.org/melpa/")
-;;                          ("org" . "http://elpa.emacs-china.org/org/")
-;;                          ("sunrise-commander" . "http://elpa.emacs-china.org/sunrise-commander/")))
+(setq package-archives '(("gnu" . "http://elpa.emacs-china.org/gnu/")
+                         ("melpa" . "http://elpa.emacs-china.org/melpa/")
+                         ("org" . "http://elpa.emacs-china.org/org/")
+                         ("sunrise-commander" . "http://elpa.emacs-china.org/sunrise-commander/")))
 
-(setq package-archives '(("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-                         ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
-                         ("sunrise-commander" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/sunrise-commander/")))
+;; (setq package-archives '(("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+;;                          ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+;;                          ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+;;                          ("sunrise-commander" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/sunrise-commander/")))
 (setq load-prefer-newer t)
 (package-initialize)
 ;; Oh no I want to use HTTPS!
@@ -44,9 +44,9 @@
 ;; 			 ("ec-melpa" . "http://elpa.emacs-china.org/melpa/")))
 ;; (package-initialize)
 
-(when (and (fboundp 'daemonp)
-           (daemonp))
-  (package-refresh-contents))
+;; (when (and (fboundp 'daemonp)
+;;            (daemonp))
+;;   (package-refresh-contents))
 
 ;; (unless (require 'quelpa nil t)
 ;;   (with-temp-buffer

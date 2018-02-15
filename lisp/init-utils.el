@@ -428,8 +428,8 @@ _f_ auto-fill-mode:           %`auto-fill-function
   ("C-c l" . dumb-jump-quick-look))
 
 ;; (quelpa '(lsp-mode :fetcher github :repo "emacs-lsp/lsp-mode"))
-(el-get-bundle lsp-mode
-  :url "https://github.com/emacs-lsp/lsp-mode.git")
+;; (el-get-bundle lsp-mode
+;;   :url "https://github.com/emacs-lsp/lsp-mode.git")
 (use-package lsp-mode
   :diminish
   lsp-mode
@@ -442,14 +442,15 @@ _f_ auto-fill-mode:           %`auto-fill-function
   ;;     (if (file-exists-p (concat compdb "/compile_commands.json"))
   ;;         compdb
   ;;       (user-error "Could not find project compilation db"))))
+  (my/set lsp-enable-indentation nil)
   (lsp-define-stdio-client
    lsp-pyls
    "python"
    #'get-project-root
    '("/usr/local/bin/pyls")))
 
-(el-get-bundle lsp-ui
-  :url "https://github.com/emacs-lsp/lsp-ui.git")
+;; (el-get-bundle lsp-ui
+;;   :url "https://github.com/emacs-lsp/lsp-ui.git")
 ;; (quelpa '(lsp-ui :fetcher github :repo "emacs-lsp/lsp-ui"))
 (use-package lsp-ui
   :commands
@@ -457,6 +458,8 @@ _f_ auto-fill-mode:           %`auto-fill-function
   :init
   (add-hook 'lsp-mode-hook 'lsp-ui-mode)
   :config
+  (my/set lsp-ui-doc-include-signature nil
+          lsp-ui-sideline-show-symbol nil)
   ;; (customize-set-variable 'evil-intercept-maps
   ;;                         '((lsp-ui-peek-mode-map . nil)
   ;;                           (edebug-mode-map . nil)))
@@ -482,12 +485,14 @@ _f_ auto-fill-mode:           %`auto-fill-function
   ;;   "xP" 'lsp-ui-peek--select-prev-file)
   )
 
-;; (use-package company-lsp
-;;   :ensure t
-;;   :after lsp-mode
-;;   :init
-;;   (with-eval-after-load 'company
-;;     (add-to-list 'company-backends 'company-lsp)))
+(use-package company-lsp
+  :ensure t
+  :after lsp-mode
+  :init
+  (my/set company-transformers nil
+          company-lsp-async t)
+  (with-eval-after-load 'company
+    (add-to-list 'company-backends 'company-lsp)))
 
 (use-package emr
   :diminish
@@ -567,6 +572,13 @@ _f_ auto-fill-mode:           %`auto-fill-function
     (simpleclip-set-contents (car kill-ring)))
   (evil-leader/set-key
     "cp" 'copy-as-format-choose))
+
+(use-package indent-guide
+  :ensure t
+  :diminish
+  indent-guide-mode
+  :config
+  (indent-guide-global-mode 1))
 
 (provide 'init-utils)
 ;;; init-utils.el ends here

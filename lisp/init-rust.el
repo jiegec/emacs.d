@@ -13,6 +13,9 @@
   :config
   (my/set rust-format-on-save t))
 
+(use-package lsp-rust
+  :ensure t)
+
 (use-package flycheck-rust
   :ensure t
   :after flycheck
@@ -25,7 +28,8 @@
   :commands
   racer-mode
   :init
-  (add-hook 'rust-mode-hook 'racer-mode))
+  ;; (add-hook 'rust-mode-hook 'racer-mode)
+  )
 
 
 (provide 'init-rust)
