@@ -9,6 +9,8 @@
 (require 'my-funcs)
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu")
 
+(add-hook 'mail-mode-hook #'epa-mail-mode)
+
 (use-package bbdb
   :ensure t
   :defer
@@ -165,7 +167,9 @@
              (mu4e-drafts-folder . "/TankJackChen/Drafts")
              (mu4e-sent-folder . "/TankJackChen/Sent Messages")
              (mu4e-trash-folder . "/TankJackChen/Deleted Messages")
-             )))
+             )
+            ("Chenjj17"
+             (user-mail-address . "chenjj17@mails.tsinghua.edu.cn"))))
   (mu4e-multi-enable))
 (use-package mu4e
   :defer

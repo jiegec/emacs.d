@@ -301,6 +301,8 @@ _f_ auto-fill-mode:           %`auto-fill-function
 
 (use-package dtrt-indent
   :ensure t
+  :diminish
+  dtrt-indent-mode
   :config
   (dtrt-indent-mode 1))
 
@@ -433,21 +435,9 @@ _f_ auto-fill-mode:           %`auto-fill-function
 (use-package lsp-mode
   :diminish
   lsp-mode
-  :commands
-  (lsp-mode)
   :config
-  ;; (defun get-compdb-dir ()
-  ;;   "Find where compile-commands.json locates."
-  ;;   (let ((compdb (expand-file-name (concat (projectile-project-root) projectile-project-compilation-dir))))
-  ;;     (if (file-exists-p (concat compdb "/compile_commands.json"))
-  ;;         compdb
-  ;;       (user-error "Could not find project compilation db"))))
-  (my/set lsp-enable-indentation nil)
-  (lsp-define-stdio-client
-   lsp-pyls
-   "python"
-   #'get-project-root
-   '("/usr/local/bin/pyls")))
+  (require 'lsp-imenu)
+  (add-hook 'lsp-after-open-hook 'lsp-enable-imenu))
 
 ;; (el-get-bundle lsp-ui
 ;;   :url "https://github.com/emacs-lsp/lsp-ui.git")
@@ -458,39 +448,15 @@ _f_ auto-fill-mode:           %`auto-fill-function
   :init
   (add-hook 'lsp-mode-hook 'lsp-ui-mode)
   :config
+  (add-hook 'lsp-after-open-hook (lambda () (lsp-ui-flycheck-enable 1)))
   (my/set lsp-ui-doc-include-signature nil
-          lsp-ui-sideline-show-symbol nil)
-  ;; (customize-set-variable 'evil-intercept-maps
-  ;;                         '((lsp-ui-peek-mode-map . nil)
-  ;;                           (edebug-mode-map . nil)))
-  ;; (customize-set-variable 'evil-overriding-maps
-  ;;                         '((lsp-ui-peek-mode-map . nil)
-  ;;                           (Buffer-menu-mode-map . nil)
-  ;;                           (color-theme-mode-map . nil)
-  ;;                           (comint-mode-map . nil)
-  ;;                           (compilation-mode-map . nil)
-  ;;                           (grep-mode-map . nil)
-  ;;                           (dictionary-mode-map . nil)
-  ;;                           (ert-results-mode-map . motion)
-  ;;                           (Info-mode-map . motion)
-  ;;                           (speedbar-key-map . nil)
-  ;;                           (speedbar-file-key-map . nil)
-  ;;                           (speedbar-buffers-key-map . nil)))
-  ;; (add-to-list 'evil-overriding-maps
-  ;;              '(lsp-ui-peek-mode-map . nil))
-  ;; (evil-leader/set-key
-  ;;   "xn" 'lsp-ui-peek--select-next
-  ;;   "xN" 'lsp-ui-peek--select-next-file
-  ;;   "xp" 'lsp-ui-peek--select-prev
-  ;;   "xP" 'lsp-ui-peek--select-prev-file)
-  )
+          lsp-ui-sideline-show-symbol nil))
 
 (use-package company-lsp
   :ensure t
   :after lsp-mode
   :init
-  (my/set company-transformers nil
-          company-lsp-async t)
+  (my/set company-lsp-async t)
   (with-eval-after-load 'company
     (add-to-list 'company-backends 'company-lsp)))
 
@@ -520,18 +486,17 @@ _f_ auto-fill-mode:           %`auto-fill-function
 
 ;; (quelpa
 ;;  '(discourse :fetcher github :repo "lujun9972/discourse-api"))
-(el-get-bundle discourse
-  :url "https://github.com/lujun9972/discourse-api.git")
+;; (el-get-bundle discourse
+;;   :url "https://github.com/lujun9972/discourse-api.git")
 ;; (use-package discourse)
 
-(el-get-bundle discourse
-  :url "https://github.com/lujun9972/discourse-view.el.git")
+;; (el-get-bundle discourse
+;;   :url "https://github.com/lujun9972/discourse-view.el.git")
 ;; (quelpa
 ;;  '(discourse-view :fetcher github :repo "lujun9972/discourse-view.el"))
 ;; (use-package discourse-view)
 
 (use-package vterm
-  :defer
   :load-path "/Volumes/Data/emacs-libvterm"
   :commands
   vterm
@@ -579,6 +544,16 @@ _f_ auto-fill-mode:           %`auto-fill-function
   indent-guide-mode
   :config
   (indent-guide-global-mode 1))
+
+(use-package ivy-xref
+  :ensure t
+  :init
+  (my/set xref-show-xrefs-function 'ivy-xref-show-xrefs))
+
+(use-package daemons
+  :ensure t
+  :commands
+  daemons)
 
 (provide 'init-utils)
 ;;; init-utils.el ends here

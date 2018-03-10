@@ -120,6 +120,7 @@
      (shell      . t)
      (emacs-lisp . t)
      (tangle     . t)
+     (lisp       . t)
      (python     . t)
      (haskell    . t)
      (dot        . t)
@@ -127,6 +128,7 @@
 
   (use-package ox-latex
     :config
+    (add-to-list 'org-latex-packages-alist '("" "svg"))
     ;; From Kuashal Modi's configuation
     ;; Prevent an image from floating to a different location.
     ;; http://tex.stackexchange.com/a/8633/52678

@@ -15,6 +15,11 @@
   (add-hook 'go-mode-hook 'go-oracle-mode)
   (add-hook 'before-save-hook 'gofmt-before-save))
 
+(use-package lsp-go
+  :ensure t
+  :config
+  (add-hook 'go-mode-hook 'lsp-go-enable))
+
 (add-hook 'go-mode (lambda ()
                      (use-package go-flycheck)
                      (use-package go-flymake)

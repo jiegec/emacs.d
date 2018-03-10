@@ -130,8 +130,6 @@
   :ensure t)
 
 (use-package cquery
-  :commands
-  (lsp-cquery-enable)
   :init
   (dolist (mode '(c++-mode c-mode objc-mode))
     (evil-leader/set-key-for-mode mode

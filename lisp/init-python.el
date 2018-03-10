@@ -23,7 +23,10 @@
   ;; (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
   )
 
-(add-hook 'python-mode-hook 'lsp-pyls-enable)
+(use-package lsp-python
+  :ensure t
+  :config
+  (add-hook 'python-mode-hook 'lsp-python-enable))
 
 (provide 'init-python)
 ;;; init-python.el ends here

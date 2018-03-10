@@ -43,7 +43,7 @@ BODY is same as `setq'."
       `(progn
          (if (custom-variable-p ',sym)
              (progn
-                                        ;(validate-value ,val (custom-variable-type ',sym))
+               ; (validate-value ,val (custom-variable-type ',sym))
                (customize-set-variable ',sym ,val))
            (setq ,sym ,val))
          (my/set ,@rst)))))
