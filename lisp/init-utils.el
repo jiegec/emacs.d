@@ -437,6 +437,7 @@ _f_ auto-fill-mode:           %`auto-fill-function
   lsp-mode
   :config
   (require 'lsp-imenu)
+  (global-set-key (kbd "M-F") #'lsp-format-buffer)
   (add-hook 'lsp-after-open-hook 'lsp-enable-imenu))
 
 ;; (el-get-bundle lsp-ui
@@ -450,6 +451,7 @@ _f_ auto-fill-mode:           %`auto-fill-function
   :config
   (add-hook 'lsp-after-open-hook (lambda () (lsp-ui-flycheck-enable 1)))
   (my/set lsp-ui-doc-include-signature nil
+          lsp-ui-sideline-show-hover nil
           lsp-ui-sideline-show-symbol nil))
 
 (use-package company-lsp

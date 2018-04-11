@@ -30,7 +30,7 @@
           erc-kill-queries-on-quit t
           erc-kill-server-buffer-on-quit t
           erc-autojoin-channels-alist
-          '(("freenode.net" "#spanish" "#haskell" "#english" "#emacs" "#clojure" "#vim" "#MacOSX" "#linux" "#archlinux" "#wikipedia-zh"))))
+          '(("freenode.net" "#emacs" "#tuna" "#tuna-random" "#fedora-riscv"))))
 
 (use-package elfeed
   :ensure t
@@ -58,6 +58,8 @@
   :ensure org-eww
   :commands
   org-eww-mode
+  :diminish
+  org-eww-mode
   :init
   (add-hook 'org-mode-hook 'org-eww-mode))
 
@@ -71,8 +73,9 @@
   :bind
   ("C-c c" . org-capture)
   ("C-c a" . org-agenda)
+  :diminish
+  org-indent-mode
   :config
-
   (my/set org-agenda-files '("~/gtd/inbox.org"
                              "~/gtd/gtd.org"
                              "~/gtd/tickler.org")
