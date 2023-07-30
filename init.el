@@ -17,6 +17,7 @@
 
 (require 'init-evil)
 (require 'init-builtins)
+(require 'init-lifestyle)
 
 ;; (require 'init-c)
 ;; (require 'init-clojure)
@@ -27,7 +28,6 @@
 ;; (require 'init-haskell)
 ;; (require 'init-input)
 ;; (require 'init-java)
-;; (require 'init-lifestyle)
 ;; (require 'init-lisp)
 ;; (require 'init-mail)
 ;; (require 'init-proof)
