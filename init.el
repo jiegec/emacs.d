@@ -12,11 +12,10 @@
 (add-to-list 'load-path "~/.emacs.d/lisp")
 
 (setq debug-on-error nil)
-;; (setq load-suffixes '(".el"))
 
 (require 'init-package)
 
-;; (require 'init-evil)
+(require 'init-evil)
 ;; 
 ;; (require 'init-builtins)
 ;; (require 'init-c)
