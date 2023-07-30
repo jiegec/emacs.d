@@ -9,14 +9,14 @@
 ;; Pending: company-coq dict ghci go lua math shell web
 
 ;; From https://glyph.twistedmatrix.com/2015/11/editor-malware.html
-(setq-default tls-checktrust t)
-(let ((trustfile "/usr/local/etc/openssl/cert.pem"))
-  (setq-default tls-program
-                (list
-                 (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
-                         (if (eq window-system 'w32) ".exe" "") trustfile)))
-  (setq-default gnutls-verify-error t
-                gnutls-trustfiles (list trustfile)))
+;; (setq-default tls-checktrust t)
+;; (let ((trustfile "/usr/local/etc/openssl/cert.pem"))
+;;   (setq-default tls-program
+;;                 (list
+;;                  (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
+;;                          (if (eq window-system 'w32) ".exe" "") trustfile)))
+;;   (setq-default gnutls-verify-error t
+;;                 gnutls-trustfiles (list trustfile)))
 
 (require 'package)
 ;; (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
@@ -27,10 +27,9 @@
 ;; 			 ("ec-org" . "https://git.oschina.net/EmacsChina/elpa/raw/master/org/")
 ;; 			 ("ec-melpa" . "https://git.oschina.net/EmacsChina/elpa/raw/master/melpa/")))
 ;; (package-initialize)
-(setq package-archives '(("gnu" . "http://elpa.emacs-china.org/gnu/")
-                         ("melpa" . "http://elpa.emacs-china.org/melpa/")
-                         ("org" . "http://elpa.emacs-china.org/org/")
-                         ("sunrise-commander" . "http://elpa.emacs-china.org/sunrise-commander/")))
+(setq package-archives '(("gnu"    . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                         ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
+                         ("melpa"  . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 
 ;; (setq package-archives '(("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
 ;;                          ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
@@ -54,19 +53,21 @@
 ;;     (eval-buffer)))
 ;; (setq quelpa-checkout-melpa-p nil)
 
-;; (unless (package-installed-p 'use-package)
-;;   (package-install 'use-package))
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
 ;; temporary fix
 ;; (quelpa '(use-package :fetcher github :repo "jwiegley/use-package"))
 (require 'use-package)
-(require 'diminish)
+;; (require 'diminish)
+;; (use-package diminish
+;;   :ensure t)
 (setq use-package-verbose 'debug
       use-package-minimum-reported-time 0)
 
-(use-package el-get
-  :ensure t
-  :config
-  (setq el-get-notify-type 'message))
+;; (use-package el-get
+;;   :ensure t
+;;   :config
+;;   (setq el-get-notify-type 'message))
 
 ;; (use-package auto-compile
 ;;   :ensure t

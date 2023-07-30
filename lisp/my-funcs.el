@@ -9,7 +9,7 @@
 (eval-when-compile
   (require 'cl))
 
-(require 'validate)
+;; (require 'validate)
 
 (defmacro my/able-mode (arg mode)
   "Use ARG to able MODE."
@@ -114,9 +114,9 @@ BODY is same as `setq'."
   "CPS convert a program."
   (T term '(lambda (ans) ans)))
 
-(evil-leader/set-key
-  "ts" 'my/timestamp
-  "rl" 'my/reload-emacs-init-file)
+;; (evil-leader/set-key
+;;   "ts" 'my/timestamp
+;;   "rl" 'my/reload-emacs-init-file)
 
 (use-package ffi
   :defer

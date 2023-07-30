@@ -144,8 +144,8 @@
   :config
   (my/set send-mail-function 'smtpmail-send-it))
 
-(el-get-bundle mu4e-multi
-  :url "https://github.com/fgallina/mu4e-multi.git")
+;; (el-get-bundle mu4e-multi
+;;   :url "https://github.com/fgallina/mu4e-multi.git")
 ;; (quelpa '(mu4e-multi
 ;;           :fetcher
 ;;           github
