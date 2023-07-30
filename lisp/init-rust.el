@@ -10,27 +10,14 @@
 
 (use-package rust-mode
   :ensure t
+  :custom
+  (rust-format-on-save t))
+
+(use-package eglot
+  :hook (rust-mode . eglot-ensure)
   :config
-  (my/set rust-format-on-save t))
-
-(use-package lsp-rust
-  :ensure t)
-
-(use-package flycheck-rust
-  :ensure t
-  :after flycheck
-  :config
-  (add-hook 'flycheck-mode-hook 'flycheck-rust-setup))
-
-(use-package racer
-  :ensure t
-  :defer
-  :commands
-  racer-mode
-  :init
-  ;; (add-hook 'rust-mode-hook 'racer-mode)
-  )
-
+  (add-to-list 'eglot-server-programs
+             '(rust-mode . ("rust-analyzer"))))
 
 (provide 'init-rust)
 ;;; init-rust.el ends here

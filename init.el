@@ -18,6 +18,7 @@
 (require 'init-evil)
 (require 'init-builtins)
 (require 'init-lifestyle)
+(require 'init-rust)
 
 ;; (require 'init-c)
 ;; (require 'init-clojure)
@@ -32,7 +33,6 @@
 ;; (require 'init-mail)
 ;; (require 'init-proof)
 ;; (require 'init-python)
-;; (require 'init-rust)
 ;; (require 'init-utils)
 ;; (require 'init-web)
 
