@@ -11,7 +11,7 @@
 (setq package-archives '(("gnu"    . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
                          ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
                          ("melpa"  . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
-(setq load-prefer-newer t)
+(customize-set-variable 'load-prefer-newer t)
 (package-initialize)
 
 ;; Setup use-package

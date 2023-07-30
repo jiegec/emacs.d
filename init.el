@@ -16,8 +16,8 @@
 (require 'init-package)
 
 (require 'init-evil)
-;; 
-;; (require 'init-builtins)
+(require 'init-builtins)
+
 ;; (require 'init-c)
 ;; (require 'init-clojure)
 ;; (require 'init-elm)
