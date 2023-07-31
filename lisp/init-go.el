@@ -11,7 +11,10 @@
   :config
   (add-to-list 'treesit-language-source-alist '(go "https://github.com/tree-sitter/tree-sitter-go"))
   (unless (treesit-language-available-p 'go)
-    (treesit-install-language-grammar 'go)))
+    (treesit-install-language-grammar 'go))
+  (add-to-list 'treesit-language-source-alist '(gomod "https://github.com/camdencheek/tree-sitter-go-mod"))
+  (unless (treesit-language-available-p 'gomod)
+    (treesit-install-language-grammar 'gomod)))
 (use-package go-ts-mode)
 
 ;; gopls LSP
