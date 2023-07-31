@@ -15,13 +15,13 @@
 
 (require 'init-package)
 
-(require 'init-evil)
+(require 'init-c)
 (require 'init-builtins)
+(require 'init-evil)
 (require 'init-lifestyle)
-(require 'init-rust)
 (require 'init-python)
+(require 'init-rust)
 
-;; (require 'init-c)
 ;; (require 'init-clojure)
 ;; (require 'init-elm)
 ;; (require 'init-email)
