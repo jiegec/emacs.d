@@ -31,5 +31,8 @@
 (customize-set-value 'user-mail-address "c@jia.je")
 (customize-set-value 'inhibit-startup-screen t)
 
+;; Enlarge text
+(set-face-attribute 'default nil :height 200)
+
 (provide 'init-builtins)
 ;;; init-builtins.el ends here

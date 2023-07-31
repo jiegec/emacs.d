@@ -6,10 +6,12 @@
 
 ;;; Code:
 
+;; Better minibuffer completion
 (use-package counsel
   :ensure t
   :bind
-  ("M-x" . counsel-M-x) ; M-x completion
+  ("C-x C-f" . counsel-find-file); find file
+  ("M-x" . counsel-M-x) ; M-x
   :config
   (ivy-mode)
   :diminish
@@ -22,6 +24,10 @@
   (global-company-mode 1)
   :diminish
   company-mode)
+
+;; Git
+(use-package magit
+  :ensure t)
 
 (provide 'init-utils)
 ;;; init-utils.el ends here
