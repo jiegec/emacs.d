@@ -19,5 +19,9 @@
 (setq use-package-verbose 'debug
       use-package-minimum-reported-time 0)
 
+;; Hide modes in mode line
+(use-package diminish
+  :ensure t)
+
 (provide 'init-package)
 ;;; init-package.el ends here

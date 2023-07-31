@@ -33,7 +33,7 @@
 ;; (require 'init-lisp)
 ;; (require 'init-mail)
 ;; (require 'init-proof)
-;; (require 'init-utils)
+(require 'init-utils)
 ;; (require 'init-web)
 
 (let ((elapsed (float-time (time-subtract (current-time)

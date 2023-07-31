@@ -22,10 +22,14 @@
 (global-auto-revert-mode t)
 (save-place-mode t)
 
+;; Hide eldoc in mode line
+(diminish 'eldoc-mode)
+
 ;; Default settings
 (customize-set-value 'custom-file "~/.emacs.d/custom.el")
 (customize-set-value 'user-full-name "Jiajie Chen")
 (customize-set-value 'user-mail-address "c@jia.je")
+(customize-set-value 'inhibit-startup-screen t)
 
 (provide 'init-builtins)
 ;;; init-builtins.el ends here
