@@ -6,8 +6,6 @@
 
 ;;; Code:
 
-(require 'my-funcs)
-
 (use-package rust-mode
   :ensure t
   :defer t

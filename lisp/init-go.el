@@ -6,38 +6,21 @@
 
 ;;; Code:
 
-(add-to-list 'load-path (substitute-in-file-name "$GOPATH/src/github.com/dougm/goflymake"))
-
-(use-package go-mode
-  :ensure t
-  :defer
+;; go tree-sitter
+(use-package treesit
   :config
-  (add-hook 'go-mode-hook 'go-oracle-mode)
-  (add-hook 'before-save-hook 'gofmt-before-save))
+  (add-to-list 'treesit-language-source-alist '(go "https://github.com/tree-sitter/tree-sitter-go"))
+  (unless (treesit-language-available-p 'go)
+    (treesit-install-language-grammar 'go)))
+(use-package go-ts-mode)
 
-(use-package lsp-go
-  :ensure t
+;; gopls LSP
+(use-package eglot
+  :hook (go-ts-mode . eglot-ensure)
+  :defer t
   :config
-  (add-hook 'go-mode-hook 'lsp-go-enable))
-
-(add-hook 'go-mode (lambda ()
-                     (use-package go-flycheck)
-                     (use-package go-flymake)
-                     (use-package go-eldoc
-                       :ensure t
-                       :config
-                       (go-eldoc-setup))
-                     (use-package go-errcheck
-                       :ensure t)
-                     (use-package go-gopath
-                       :ensure t)
-                     (use-package go-projectile
-                       :ensure t)
-                     (use-package go-snippets
-                       :ensure t)
-                     (use-package golint
-                       :ensure t)
-                     ))
+  (add-to-list 'eglot-server-programs
+             '(go-ts-mode . ("gopls"))))
 
 (provide 'init-go)
 ;;; init-go.el ends here
