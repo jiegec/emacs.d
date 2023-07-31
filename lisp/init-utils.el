@@ -6,13 +6,16 @@
 
 ;;; Code:
 
-(use-package ivy
+(use-package counsel
   :ensure t
+  :bind
+  ("M-x" . counsel-M-x) ; M-x completion
   :config
   (ivy-mode)
   :diminish
   ivy-mode)
 
+;; Code completion
 (use-package company
   :ensure t
   :config

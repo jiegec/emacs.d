@@ -13,6 +13,7 @@
   :custom
   (rust-format-on-save t))
 
+;; rust-analyzer LSP
 (use-package eglot
   :hook (rust-mode . eglot-ensure)
   :config

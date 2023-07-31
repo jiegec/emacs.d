@@ -6,6 +6,7 @@
 
 ;;; Code:
 
+;; python-lsp-server LSP
 (use-package eglot
   :hook (python-mode . eglot-ensure)
   :config
