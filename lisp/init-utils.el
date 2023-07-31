@@ -31,5 +31,14 @@
   :ensure t
   :defer t)
 
+;; xref
+(use-package xref
+  :defer t
+  :bind
+  ;; Mimic VSCode
+  ("s-<mouse-1>" . xref-find-definitions-at-mouse)
+  ("<f12>" . xref-find-definitions)
+  ("C--" . xref-go-back))
+
 (provide 'init-utils)
 ;;; init-utils.el ends here
