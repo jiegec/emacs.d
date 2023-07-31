@@ -9,6 +9,7 @@
 ;; python-lsp-server LSP
 (use-package eglot
   :hook (python-mode . eglot-ensure)
+  :defer t
   :config
   (add-to-list 'eglot-server-programs
              '(python-mode . ("pylsp"))))

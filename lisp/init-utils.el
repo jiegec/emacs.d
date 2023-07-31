@@ -9,6 +9,7 @@
 ;; Better minibuffer completion
 (use-package counsel
   :ensure t
+  :defer t
   :bind
   ("C-x C-f" . counsel-find-file); find file
   ("M-x" . counsel-M-x) ; M-x
@@ -27,7 +28,8 @@
 
 ;; Git
 (use-package magit
-  :ensure t)
+  :ensure t
+  :defer t)
 
 (provide 'init-utils)
 ;;; init-utils.el ends here
