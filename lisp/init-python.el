@@ -6,27 +6,11 @@
 
 ;;; Code:
 
-(use-package elpy
-  :defer
-  :ensure t
+(use-package eglot
+  :hook (python-mode . eglot-ensure)
   :config
-  ;; (elpy-enable)
-  )
-
-(use-package anaconda-mode
-  :ensure t
-  :commands
-  anaconda-mode
-  anaconda-eldoc-mode
-  :init
-  ;; (add-hook 'python-mode-hook 'anaconda-mode)
-  ;; (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
-  )
-
-(use-package lsp-python
-  :ensure t
-  :config
-  (add-hook 'python-mode-hook 'lsp-python-enable))
+  (add-to-list 'eglot-server-programs
+             '(python-mode . ("pylsp"))))
 
 (provide 'init-python)
 ;;; init-python.el ends here
